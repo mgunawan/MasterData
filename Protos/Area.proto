@@ -1,0 +1,23 @@
+syntax = "proto3";
+option csharp_namespace = "MasterData.Area.Protos";
+
+message AreaModel{
+	string id = 1;
+	string name = 2;
+}
+
+message reqAreaById{
+	string id=1;
+}
+
+message resAreaAll{
+	repeated AreaModel listArea = 1;
+}
+
+message AreaEmpty{ string message = 1;}
+
+service AreaGrpcService{
+	rpc AddArea(AreaModel) returns (AreaEmpty);
+	rpc GetAreaById(reqAreaById) returns(AreaModel);
+	rpc GetAllArea(AreaEmpty) returns (resAreaAll);
+}

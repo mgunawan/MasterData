@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option csharp_namespace = "MasterData.Company.Protos";
+
+message CompanyModel{
+	string id = 1;
+	string id2 = 2;
+	string name = 3;
+	bool is_active = 4;
+}
+
+message reqCompanyById{
+	string id = 1;
+}
+
+message resCompanyAll{
+	repeated CompanyModel listCompany = 1;
+}
+
+message CompanyEmpty{ string message = 1;}
+
+service CompanyGrpcService{
+	rpc Create(CompanyModel) returns (CompanyEmpty);
+	rpc Update(CompanyModel) returns (CompanyEmpty);
+	rpc GetById(reqCompanyById) returns (CompanyModel);
+	rpc GetAll(CompanyEmpty) returns (resCompanyAll);
+}

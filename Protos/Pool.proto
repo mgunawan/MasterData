@@ -1,0 +1,111 @@
+syntax = "proto3";
+option csharp_namespace = "MasterData.Pool.Protos"; 
+
+import "google/protobuf/wrappers.proto";
+
+message ReqGetPoolById {
+    string pool_id = 1;
+}
+
+message ResGetPoolById {
+    PoolModel pool = 1;
+    repeated PoolModel listSatelit = 2;
+    repeated CompanyModel listCompany = 3;
+}
+
+message ReqGetAllPool {
+    string id = 1;
+}
+
+message ResGetAllPool {
+    repeated PoolModel listPool = 1;
+}
+
+message CompanyModel {
+    string id = 1;
+    string name = 2;
+    string service_type = 3;
+    //bool is_induk = 4;
+    bool is_active = 4;
+}
+
+message PoolModel {
+    google.protobuf.StringValue id =1;
+    google.protobuf.StringValue id2 = 2;
+    google.protobuf.StringValue name = 3;
+    google.protobuf.StringValue address = 4;
+    google.protobuf.StringValue telephone = 5;
+    google.protobuf.StringValue area_id = 6;
+    bool is_active = 7;
+    StatusPool status_pool =8;
+    google.protobuf.StringValue parent_id =9;
+    google.protobuf.StringValue active_on  =10;
+    google.protobuf.StringValue non_active_on=11;
+    google.protobuf.StringValue create_on  =12;
+    google.protobuf.StringValue update_on =13;
+    google.protobuf.StringValue user_id =14;
+    google.protobuf.StringValue computer_name=15;
+}
+
+enum StatusPool{
+    SATELITE = 0;
+    PARENT = 1;
+}
+
+message ReqDeletePoolById {
+    string id = 1;
+}
+
+message ReqPoolByAreaId {
+    string area_id = 1;
+}
+
+message ReqPoolByParentId {
+    string parent_id = 1;
+}
+
+message ReqCriteriaPool {
+    string criteria = 1;
+    bool isactive = 2;
+    int32 limit = 3;
+    int32 page = 4;
+}
+
+message reqAddCompanyPool{
+    string pool_id = 1;
+    repeated CompanyModel companies = 2;
+}
+
+message reqAddSatelitPool{
+    string pool_id = 1;
+    repeated string satelit_pool_id = 2;
+}
+
+message PoolServiceType{
+    string pool_id = 1;
+    string company_id = 2;
+    string name = 3;
+    string service_type = 4;
+}
+
+message ResAllPoolService{
+    repeated PoolServiceType listPoolService  = 1;
+}
+
+message PoolEmpty {
+    string message = 1;
+}
+
+service PoolGrpcService {
+    //rpc Create (PoolModel) returns (PoolEmpty);
+    rpc CreatePool (PoolModel) returns (PoolEmpty);
+    rpc UpdatePool (PoolModel) returns (PoolEmpty);
+    rpc DeletePool (ReqDeletePoolById) returns (PoolEmpty);
+    rpc GetPool (ReqGetPoolById) returns (ResGetPoolById);
+    rpc GetAllPool (ReqCriteriaPool) returns (ResGetAllPool);
+    rpc GetPoolByAreaId (ReqPoolByAreaId) returns (ResGetAllPool);
+    rpc GetAllPoolService(ReqGetPoolById) returns (ResAllPoolService);
+
+    rpc AddCompany(reqAddCompanyPool) returns (PoolEmpty);
+    rpc AddSatelit(reqAddSatelitPool) returns (PoolEmpty);
+}

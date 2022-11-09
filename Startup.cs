@@ -13,6 +13,7 @@ using MasterData.Repositories;
 using MasterData.Repositories.Cache;
 using System.Net;
 using MasterData.Company.Protos;
+using Elastic.Apm.NetCoreAll;
 //using MasterData.Repositories.Grpc;
 
 namespace MasterData
@@ -130,6 +131,7 @@ namespace MasterData
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseAllElasticApm(Configuration);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

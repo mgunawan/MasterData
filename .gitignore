@@ -26,12 +26,15 @@ x64/
 x86/
 build/
 bld/
+Properties/
 [Bb]in/
 [Oo]bj/
 [Oo]ut/
 msbuild.log
 msbuild.err
 msbuild.wrn
+
+*.sql
 
 # Visual Studio 2015
 .vs/

@@ -9,6 +9,10 @@ if [ $# -eq 0 ]
     exit 1
 fi
 
+echo 'Copy Common'
+mkdir Common
+cp -r ../Common/* ./Common/
+
 echo 'Building Images'
 docker build --no-cache -t asia.gcr.io/$NAMESPACE/$SERVICE:$1 .
 
@@ -20,3 +24,6 @@ docker push asia.gcr.io/$NAMESPACE/$SERVICE:$1
 
 echo 'Removing Images'
 docker rmi asia.gcr.io/$NAMESPACE/$SERVICE:$1
+
+echo 'Removing Common'
+rm -rf Common

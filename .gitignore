@@ -34,6 +34,7 @@ msbuild.log
 msbuild.err
 msbuild.wrn
 
+[Rr]eadme.md
 *.sql
 
 # Visual Studio 2015

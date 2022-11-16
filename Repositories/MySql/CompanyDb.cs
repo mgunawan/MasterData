@@ -40,6 +40,8 @@ namespace MasterData.Repositories.MySql
                                 where (id = @id or id2 = @id)";
 
                 var oComp = await _connection.QueryFirstOrDefaultAsync<Models.Company>(sqlQuery, new { id = id, id2 = id });
+                if(oComp == null)
+                    throw new Exception("Company id not found.");
                 if (!oComp.IsActive)
                     throw new Exception("Company is not active, you cannot assign this company to pool");
                 return oComp;

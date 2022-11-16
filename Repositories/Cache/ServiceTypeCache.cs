@@ -41,7 +41,10 @@ namespace MasterData.Repositories.Cache
         public async Task<List<Models.VM.ServiceType>> GetListCache()
         {
             var o = await _cache.GetStringAsync($"VM.BB1.lServiceType");
-            return JsonConvert.DeserializeObject<List<Models.VM.ServiceType>>(o);
+            if (o != null)
+                return JsonConvert.DeserializeObject<List<Models.VM.ServiceType>>(o);
+
+            return default(List<Models.VM.ServiceType>);
         }
 
         public async Task<bool> DeleteCache()
@@ -53,15 +56,18 @@ namespace MasterData.Repositories.Cache
         public async Task<ServiceType> GetByPoolAndId(string pool_id, string service_id)
         {
             var o = await _cache.GetStringAsync($"VM.BB1.ServiceType.{pool_id}.{service_id}");
-            return JsonConvert.DeserializeObject<Models.VM.ServiceType>(o);
+            if (o != null)
+                return JsonConvert.DeserializeObject<Models.VM.ServiceType>(o);
+
+            return default(ServiceType);
         }
 
         public async Task<bool> SetCachePoolAndId(string pool_id, ServiceType o)
         {
             if (o != null)
-                await _cache.SetStringAsync($"VM.BB1.ServiceType.{pool_id}.{o.Id}", JsonConvert.SerializeObject(o), new DistributedCacheEntryOptions 
-                { 
-                    AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(7) 
+                await _cache.SetStringAsync($"VM.BB1.ServiceType.{pool_id}.{o.Id}", JsonConvert.SerializeObject(o), new DistributedCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(7)
                 });
             return true;
         }

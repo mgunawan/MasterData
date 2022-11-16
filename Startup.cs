@@ -14,7 +14,7 @@ using MasterData.Repositories.Cache;
 using System.Net;
 using MasterData.Company.Protos;
 using Elastic.Apm.NetCoreAll;
-//using MasterData.Repositories.Grpc;
+
 
 namespace MasterData
 {
@@ -53,7 +53,7 @@ namespace MasterData
             //register repo rest
             //services.AddHttpClient<SalesApi>(client =>
             //{
-            //    client.BaseAddress = new Uri(Configuration["RestSettings:ProductUrl"]);
+            //    client.BaseAddress = new Uri(Configuration["RestSettings:SalesUrl"]);
             //    client.DefaultRequestHeaders.Accept.Clear();
             //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(HttpContentMediaTypes.JSON));
 
@@ -95,7 +95,7 @@ namespace MasterData
 
             //services.AddSingleton<EmployeeGrpc>();
 
-            ////IOC
+            //IOC
             services.AddScoped<PoolDb>();
             services.AddScoped<PoolCache>();
             services.AddScoped<AreaDb>();
@@ -118,13 +118,20 @@ namespace MasterData
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddGrpc();
+            //services.AddGrpc();
+            services.AddGrpc().AddJsonTranscoding();
             services.AddGrpcReflection();
 
             services.AddControllers();
+            services.AddGrpcSwagger();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MasterData.Pool.REgion.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MasterData.Service", Version = "v1" });
+                //c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+
+                //var filePath = Path.Combine(System.AppContext.BaseDirectory, "Server.xml");
+                //c.IncludeXmlComments(filePath);
+                //c.IncludeGrpcXmlComments(filePath, includeControllerXmlComments: true);
             });
             services.AddHealthChecks();
         }
@@ -138,7 +145,7 @@ namespace MasterData
             }
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MasterData.Pool.Region.API v1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MasterData.Service v1"));
 
             app.UseRouting();
 

@@ -43,6 +43,29 @@ namespace MasterData.Services
             }
         }
 
+        public override async Task<ServiceTypeEmpty> Update(ServiceTypeModel request, ServerCallContext context)
+        {
+            try
+            {
+                log.LogInformation("Begin call service Vehicle Type update.");
+                Models.VM.ServiceType oService = mapper.Map<Models.VM.ServiceType>(request);
+                var ret = await repo.db().Update(oService);
+                if (ret > 0)
+                {
+                    await repo.cache().DeleteCache();
+                    await repo.cache().SetCache(oService);
+                    return new ServiceTypeEmpty { Message = "OK" };
+                }
+                return new ServiceTypeEmpty { Message = "OK" };
+            }
+            catch (Exception ex)
+            {
+                context.Status = new Status(StatusCode.Aborted, "Error on create seervice type");
+                log.LogError("Error on create service type " + ex.Message);
+                return new ServiceTypeEmpty { Message = "FAILED" };
+            }
+        }
+
         public override async Task<ServiceTypeModel> GetById(reqGetByPoolAndId request, ServerCallContext context)
         {
             try
@@ -77,7 +100,7 @@ namespace MasterData.Services
                 log.LogInformation("Begin call service VehicleTypeService.GetListService.");
                 var ret = new resGetAll();
                 var listServiceType = await repo.cache().GetListCache();
-                if (listServiceType.Count == 0 || listServiceType == null)
+                if (listServiceType == null)
                 {
                     listServiceType = await repo.db().GetAll(request.PoolId);
                     await repo.cache().SetListCache(listServiceType);

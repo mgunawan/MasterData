@@ -1,6 +1,8 @@
 syntax = "proto3";
 option csharp_namespace = "MasterData.Area.Protos";
 
+import "google/api/annotations.proto";
+
 message AreaModel{
 	string id = 1;
 	string name = 2;
@@ -15,9 +17,26 @@ message resAreaAll{
 }
 
 message AreaEmpty{ string message = 1;}
-
+	
+// Service Pool Area
 service AreaGrpcService{
-	rpc AddArea(AreaModel) returns (AreaEmpty);
-	rpc GetAreaById(reqAreaById) returns(AreaModel);
-	rpc GetAllArea(AreaEmpty) returns (resAreaAll);
+	// Create new pool area.
+	rpc AddArea(AreaModel) returns (AreaEmpty){
+		option (google.api.http) = {
+		  post: "/v1/area",
+		  body: "*"
+		};
+	}
+
+	rpc GetAreaById(reqAreaById) returns (AreaModel){
+		option (google.api.http) = {
+			get: "/v1/area/{id}"
+		};
+	}
+
+	rpc GetAllArea(AreaEmpty) returns (resAreaAll){
+		option (google.api.http) = {
+			get: "/v1/area"
+		};
+	}
 }

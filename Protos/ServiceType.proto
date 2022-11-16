@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 option csharp_namespace = "MasterData.VM.Protos";
+import "google/api/annotations.proto";
 
 message ServiceTypeModel{
 	string id = 1;
@@ -23,9 +24,29 @@ message reqGetByPoolAndId{
 
 message ServiceTypeEmpty{string message = 1;}
 
+// MasterData Vehicle Management ServiceType
 service ServiceTypeGrpcService{
-	rpc Create(ServiceTypeModel) returns (ServiceTypeEmpty);
-	rpc Update(ServiceTypeModel) returns (ServiceTypeEmpty);
-	rpc GetById(reqGetByPoolAndId) returns (ServiceTypeModel);
-	rpc GetListService(reqGetByPool) returns (resGetAll);
+	// Create Service type 
+	rpc Create(ServiceTypeModel) returns (ServiceTypeEmpty){
+		option (google.api.http) = {
+			post : "/v1/servicetype",
+			body : "*"
+		};
+	}
+	rpc Update(ServiceTypeModel) returns (ServiceTypeEmpty){
+		option (google.api.http) = {
+			put : "/v1/servicetype",
+			body : "*"
+		};
+	}
+	rpc GetById(reqGetByPoolAndId) returns (ServiceTypeModel){
+		option (google.api.http) = {
+			get : "/v1/servicetype/{pool_id}/{service_type_id}"
+		};
+	}
+	rpc GetListService(reqGetByPool) returns (resGetAll){
+		option (google.api.http) = {
+			get : "/v1/servicetype/{pool_id}"
+		};
+	}
 }

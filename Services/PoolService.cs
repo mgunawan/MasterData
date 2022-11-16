@@ -176,7 +176,7 @@ namespace MasterData.Services
                     {
                         foreach (var item in oPool.Companies)
                         {
-                            oRes.ListCompany.Add(new CompanyModel
+                            oRes.ListCompany.Add(new PoolCompanyModel
                             {
                                 Id = item.CompanyId,
                                 Name = item.Name,

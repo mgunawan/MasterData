@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using MasterData.Models;
 using MasterData.Models.VM;
 using MySql.Data.MySqlClient;
 
@@ -57,9 +58,18 @@ namespace MasterData.Repositories.MySql
             }
         }
 
-        internal Task<ServiceType> GetByPoolAndId(string pool_id, string service_id)
+        public async Task<ServiceType> GetByPoolAndId(string pool_id, string service_id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string sqlQuery = @"SELECT id, name, available_for from mt_vm_servicetype where available_for like @me and id = @id";
+                var oService = await _connection.QuerySingleOrDefaultAsync<Models.VM.ServiceType>(sqlQuery, new { me = $"%{pool_id}%", id = service_id });
+                return (Models.VM.ServiceType)oService;
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

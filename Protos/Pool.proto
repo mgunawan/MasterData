@@ -2,6 +2,7 @@ syntax = "proto3";
 option csharp_namespace = "MasterData.Pool.Protos"; 
 
 import "google/protobuf/wrappers.proto";
+import "google/api/annotations.proto";
 
 message ReqGetPoolById {
     string pool_id = 1;
@@ -10,7 +11,7 @@ message ReqGetPoolById {
 message ResGetPoolById {
     PoolModel pool = 1;
     repeated PoolModel listSatelit = 2;
-    repeated CompanyModel listCompany = 3;
+    repeated PoolCompanyModel listCompany = 3;
 }
 
 message ReqGetAllPool {
@@ -21,7 +22,7 @@ message ResGetAllPool {
     repeated PoolModel listPool = 1;
 }
 
-message CompanyModel {
+message PoolCompanyModel {
     string id = 1;
     string name = 2;
     string service_type = 3;
@@ -73,7 +74,7 @@ message ReqCriteriaPool {
 
 message reqAddCompanyPool{
     string pool_id = 1;
-    repeated CompanyModel companies = 2;
+    repeated PoolCompanyModel companies = 2;
 }
 
 message reqAddSatelitPool{
@@ -97,15 +98,53 @@ message PoolEmpty {
 }
 
 service PoolGrpcService {
-    //rpc Create (PoolModel) returns (PoolEmpty);
-    rpc CreatePool (PoolModel) returns (PoolEmpty);
-    rpc UpdatePool (PoolModel) returns (PoolEmpty);
-    rpc DeletePool (ReqDeletePoolById) returns (PoolEmpty);
-    rpc GetPool (ReqGetPoolById) returns (ResGetPoolById);
-    rpc GetAllPool (ReqCriteriaPool) returns (ResGetAllPool);
-    rpc GetPoolByAreaId (ReqPoolByAreaId) returns (ResGetAllPool);
-    rpc GetAllPoolService(ReqGetPoolById) returns (ResAllPoolService);
-
-    rpc AddCompany(reqAddCompanyPool) returns (PoolEmpty);
-    rpc AddSatelit(reqAddSatelitPool) returns (PoolEmpty);
+    rpc CreatePool (PoolModel) returns (PoolEmpty){
+        option (google.api.http) = {
+            post : "/v1/pool",
+            body : "*"
+        };
+    }
+    rpc UpdatePool (PoolModel) returns (PoolEmpty){
+        option (google.api.http) = {
+            put : "/v1/pool",
+            body : "*"
+        };
+    }
+    rpc DeletePool (ReqDeletePoolById) returns (PoolEmpty){
+        option (google.api.http) = {
+            delete : "/v1/pool/{id}"
+        };
+    }
+    rpc GetPool (ReqGetPoolById) returns (ResGetPoolById){
+        option (google.api.http) = {
+            get : "/v1/pool/{pool_id}"
+        };
+    }
+    rpc GetAllPool (ReqCriteriaPool) returns (ResGetAllPool){
+        option (google.api.http) = {
+            get : "/v1/pool"
+        };
+    }
+    rpc GetPoolByAreaId (ReqPoolByAreaId) returns (ResGetAllPool){
+        option (google.api.http) = {
+            get : "/v1/pool/area/{area_id}"
+        };
+    }
+    rpc GetAllPoolService(ReqGetPoolById) returns (ResAllPoolService){
+        option (google.api.http) = {
+            get: "/v1/pool/service/{pool_id}"
+        };
+    }
+    rpc AddCompany(reqAddCompanyPool) returns (PoolEmpty){
+        option (google.api.http) = {
+            post : "/v1/pool/company",
+            body : "*"
+        };
+    }
+    rpc AddSatelit(reqAddSatelitPool) returns (PoolEmpty){
+        option (google.api.http) = {
+            post: "/v1/pool/satelit",
+            body : "*"
+        };
+    }
 }

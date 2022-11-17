@@ -4,6 +4,8 @@ metadata:
   labels:
     app: masterdata
   name: masterdata
+  annotations:
+    configmap.reloader.stakater.com/reload: "configmap-masterdata"
 spec:
   replicas: 3
   selector:

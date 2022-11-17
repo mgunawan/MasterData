@@ -13,7 +13,7 @@ pipeline {
         }
     }
     environment {
-        SERVICE = 'masterdata'
+        SERVICE = 'masterdata-bbone'
     }
     options {
         buildDiscarder(logRotator(daysToKeepStr: env.BRANCH_NAME == 'master' ? '90' : '30'))

@@ -20,7 +20,7 @@ namespace MasterData.Repositories.MySql
         {
             try
             {
-                string sqlQuery = @"INSERT into mt_vm_servicetype (id, name, available_for) VALUES (@id, @name, @available_for)";
+                string sqlQuery = @"INSERT into mst_vm_servicetype (id, name, available_for) VALUES (@id, @name, @available_for)";
                 var ret = await _connection.ExecuteAsync(sqlQuery, new { id = o.Id, name = o.Name, available_for = o.AvailableFor });
                 return ret;
             }
@@ -34,7 +34,7 @@ namespace MasterData.Repositories.MySql
         {
             try
             {
-                string sqlQuery = @"UPDATE mt_vm_servicetype set name = @name, available_for = @available_for where id = @id";
+                string sqlQuery = @"UPDATE mst_vm_servicetype set name = @name, available_for = @available_for where id = @id";
                 var ret = await _connection.ExecuteAsync(sqlQuery, new { id = o.Id, name = o.Name, available_for = o.AvailableFor });
                 return ret;
             }
@@ -48,7 +48,7 @@ namespace MasterData.Repositories.MySql
         {
             try
             {
-                string sqlQuery = @"SELECT id, name, available_for from mt_vm_servicetype where available_for like @me";
+                string sqlQuery = @"SELECT id, name, available_for from mst_vm_servicetype where available_for like @me";
                 var lService = await _connection.QueryAsync<Models.VM.ServiceType>(sqlQuery, new { me = $"%{poolId}%" });
                 return (List<Models.VM.ServiceType>)lService;
             }
@@ -62,7 +62,7 @@ namespace MasterData.Repositories.MySql
         {
             try
             {
-                string sqlQuery = @"SELECT id, name, available_for from mt_vm_servicetype where available_for like @me and id = @id";
+                string sqlQuery = @"SELECT id, name, available_for from mst_vm_servicetype where available_for like @me and id = @id";
                 var oService = await _connection.QuerySingleOrDefaultAsync<Models.VM.ServiceType>(sqlQuery, new { me = $"%{pool_id}%", id = service_id });
                 return (Models.VM.ServiceType)oService;
             }

@@ -77,9 +77,9 @@ namespace MasterData.Extensions
             }
             else
             {
-                if (!TableExist(command, "mt_pool"))
+                if (!TableExist(command, "mst_pool"))
                 {
-                    command.CommandText = @"CREATE TABLE mt_pool (id varchar(5) NOT NULL PRIMARY KEY,
+                    command.CommandText = @"CREATE TABLE mst_pool (id varchar(5) NOT NULL PRIMARY KEY,
                                                             id2 varchar(5) NOT NULL,
                                                             name varchar(30),
                                                             address varchar(255),
@@ -99,26 +99,26 @@ namespace MasterData.Extensions
                 }
 
 
-                if (!TableExist(command, "mt_vm_servicetype"))
+                if (!TableExist(command, "mst_vm_servicetype"))
                 {
-                    command.CommandText = @"CREATE TABLE mt_vm_servicetype (id varchar(5) NOT NULL PRIMARY KEY,
+                    command.CommandText = @"CREATE TABLE mst_vm_servicetype (id varchar(5) NOT NULL PRIMARY KEY,
                                                             name varchar(30),
                                                             available_for varchar(255))";
                     command.ExecuteNonQuery();
                     SeedDataServiceType(connection);
                 }
 
-                if (!TableExist(command, "mt_area"))
+                if (!TableExist(command, "mst_area"))
                 {
-                    command.CommandText = @"CREATE TABLE mt_area (id varchar(5) NOT NULL PRIMARY KEY, 
+                    command.CommandText = @"CREATE TABLE mst_area (id varchar(5) NOT NULL PRIMARY KEY, 
                                                     name VARCHAR(30) NOT NULL)";
                     command.ExecuteNonQuery();
                     SeedDataArea(connection);
                 }
 
-                if (!TableExist(command, "mt_company"))
+                if (!TableExist(command, "mst_company"))
                 {
-                    command.CommandText = @"CREATE TABLE mt_company (id varchar(10) NOT NULL,
+                    command.CommandText = @"CREATE TABLE mst_company (id varchar(10) NOT NULL,
                                                             id2 varchar(10)  NOT NULL,
                                                             name varchar(30),
                                                             is_active bit,
@@ -127,9 +127,9 @@ namespace MasterData.Extensions
                     SeedDataCompany(connection);
                 }
 
-                if (!TableExist(command, "mt_pool_company"))
+                if (!TableExist(command, "mst_pool_company"))
                 {
-                    command.CommandText = @"CREATE TABLE mt_pool_company (
+                    command.CommandText = @"CREATE TABLE mst_pool_company (
                                                 pool_id varchar(5) NOT NULL,                                                
                                                 company_id varchar(10) NOT NULL,
                                                 is_induk bit NOT NULL DEFAULT 0,
@@ -167,7 +167,7 @@ namespace MasterData.Extensions
                 //    command.ExecuteNonQuery();
                 //}
 
-                string upgradeTable = $@"ALTER TABLE mt_pool_company " +
+                string upgradeTable = $@"ALTER TABLE mst_pool_company " +
                     "ADD createon datetime," +
                     "ADD updateon datetime;";
                 command.CommandText = upgradeTable;

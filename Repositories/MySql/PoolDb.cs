@@ -23,12 +23,12 @@ namespace MasterData.Repositories.MySql
         {
             try
             {
-                var sqlArea = "SELECT id, name from mt_area where id = @id";
+                var sqlArea = "SELECT id, name from mst_area where id = @id";
                 var oArea = await _connection.QuerySingleOrDefaultAsync<Models.Area>(sqlArea, new { id = o.AreaId });
                 if (oArea == null)
                     throw new Exception("Area id not found.");
 
-                var sqlQuery = "INSERT into mt_pool (" +
+                var sqlQuery = "INSERT into mst_pool (" +
                     "id, " +
                     "id2, " +
                     "name, " +
@@ -91,7 +91,7 @@ namespace MasterData.Repositories.MySql
             string sqlQuery = @"Select id, id2, name, address, telephone, " +
                 "area_id, is_active, status_pool,parent_id, active_on, " +
                 "non_active_on, create_on, update_on, user_id, computer_name " +
-                "FROM mt_pool where (id = @id or id2 = @id)";
+                "FROM mst_pool where (id = @id or id2 = @id)";
 
             var res = await _connection.QueryFirstOrDefaultAsync<Models.Pool>(sqlQuery, new { id = id });
             if (res != null)
@@ -137,8 +137,8 @@ namespace MasterData.Repositories.MySql
         public Task<IEnumerable<PoolCompany>> GetCompanyByPoolId(string id)
         {
             string sqlQuery = @"Select a.pool_id, a.company_id, b.name, a.is_induk, a.service_type, a.is_active
-                        FROM mt_pool_company a 
-                        LEFT join mt_company b on b.id = a.company_id where a.pool_id = @id";
+                        FROM mst_pool_company a 
+                        LEFT join mst_company b on b.id = a.company_id where a.pool_id = @id";
 
             var res = _connection.QueryAsync<PoolCompany>(sqlQuery, new { id = id });
             return res;
@@ -149,7 +149,7 @@ namespace MasterData.Repositories.MySql
             string sqlQuery = @"Select id, id2, name, address, telephone, " +
                "area_id, is_active, status_pool, parent_id, active_on, " +
                "non_active_on, create_on, update_on, user_id, computer_name " +
-               "FROM mt_pool where parent_id = @parentid";
+               "FROM mst_pool where parent_id = @parentid";
 
             var res = _connection.QueryAsync<Models.Pool>(sqlQuery, new { parentid = parentId });
             return res;
@@ -157,7 +157,7 @@ namespace MasterData.Repositories.MySql
 
         public async Task<bool> Delete(string poolId, bool status)
         {
-            string sqlQuery = "Update mt_pool set is_active = 0 where id2 = @id";
+            string sqlQuery = "Update mst_pool set is_active = 0 where id2 = @id";
             try
             {
                 var res = await _connection.ExecuteAsync(sqlQuery, new { isactive = status, id = poolId });
@@ -177,7 +177,7 @@ namespace MasterData.Repositories.MySql
                 if (oArea == null)
                     throw new Exception("Area not found.");
 
-                string sqlQuery = @"UPDATE mt_pool set name=@name, address=@address, telephone=@telephone,
+                string sqlQuery = @"UPDATE mst_pool set name=@name, address=@address, telephone=@telephone,
                         area_id=@area_id, is_active=@is_active, status_pool=@status_pool, parent_id=@parent_id, active_on=@active_on,
                         non_active_on=@non_active_on, update_on=@update_on, user_id=@user_id, computer_name=@computer_name where (id=@id and id2=@id2)";
 
@@ -219,7 +219,7 @@ namespace MasterData.Repositories.MySql
                 {
                     foreach (var item in lComp)
                     {
-                        sqlQuery = $"INSERT into mt_pool_company (pool_id, company_id, is_induk, service_type, is_active, create_on, update_on) VALUES (@poolid, @companyid, @isInduk, @serviceType, @isactive, @createon, @updateon)";
+                        sqlQuery = $"INSERT into mst_pool_company (pool_id, company_id, is_induk, service_type, is_active, create_on, update_on) VALUES (@poolid, @companyid, @isInduk, @serviceType, @isactive, @createon, @updateon)";
                         var rec = _connection.ExecuteAsync(sqlQuery, new { poolid = oPool.Id2, companyid = item.PoolId, isinduk = false, servicetype = item.ServiceType, isactive = item.IsActive, createon = item.CreateOn, item.UpdateOn });
                         //var rec = _connection.ExecuteAsync(sqlQuery, new { poolid = oPool.Id2, companyid = item.PoolId, isinduk = item.IsInduk, servicetype = item.ServiceType, isactive = item.IsActive, createon = item.CreateOn, item.UpdateOn });
                     }
@@ -240,11 +240,11 @@ namespace MasterData.Repositories.MySql
         {
             try
             {
-                string sqlQuery1 = "UPDATE mt_pool set parent_id = null, status_pool = @statuspool where id2 = @poolid";
+                string sqlQuery1 = "UPDATE mst_pool set parent_id = null, status_pool = @statuspool where id2 = @poolid";
                 var ret = await _connection.ExecuteAsync(sqlQuery1, new { statuspool = (int)StatusPool.PARENT, poolid = poolId });
                 if (ret > 0)
                 {
-                    string sqlQuery2 = "UPDATE mt_pool set parent_id = @parentid, status_pool = @statuspool where id2 = @poolid";
+                    string sqlQuery2 = "UPDATE mst_pool set parent_id = @parentid, status_pool = @statuspool where id2 = @poolid";
                     int counter = 0;
                     foreach (var item in lSat)
                     {
@@ -267,7 +267,7 @@ namespace MasterData.Repositories.MySql
                 string sqlQuery = @"SELECT id, id2, name, address, telephone, area_id,
                                     is_active, status_pool, parent_id, active_on, non_active_on,
                                     create_on, update_on, user_id, computer_name
-                                    FROM mt_pool order by id";
+                                    FROM mst_pool order by id";
                 var ret = await _connection.QueryAsync<Models.Pool>(sqlQuery);
                 return (List<Models.Pool>)ret;
             }
@@ -284,7 +284,7 @@ namespace MasterData.Repositories.MySql
                 string sqlQuery = @"SELECT id, id2, name, address, telephone, area_id,
                                     is_active, status_pool, parent_id, active_on, non_active_on,
                                     create_on, update_on, user_id, computer_name
-                                    FROM mt_pool where area_id = @areaid order by id";
+                                    FROM mst_pool where area_id = @areaid order by id";
                 var ret = await _connection.QueryAsync<Models.Pool>(sqlQuery, new { areaid = regId });
                 return (List<Models.Pool>)ret;
             }
@@ -298,9 +298,9 @@ namespace MasterData.Repositories.MySql
         {
             try
             {
-                string sqlQuery = @"Select a.pool_id, a.company_id, c.name, a.service_type from mt_pool_company a
-                    left join mt_pool b on b.id2 = a.pool_id 
-                    left join mt_company c on c.id = a.company_id
+                string sqlQuery = @"Select a.pool_id, a.company_id, c.name, a.service_type from mst_pool_company a
+                    left join mst_pool b on b.id2 = a.pool_id 
+                    left join mst_company c on c.id = a.company_id
                     where a.is_active = 1 and a.pool_id = @poolid";
                 var ret = await _connection.QueryAsync<PoolCompany>(sqlQuery, new {poolid = poolId});
                 return ret;

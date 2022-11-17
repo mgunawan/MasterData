@@ -9,6 +9,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using System.Text;
 using Google.Cloud.PubSub.V1;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MasterData.Services
 {
@@ -77,6 +78,7 @@ namespace MasterData.Services
             }
         }
 
+        //[Authorize]
         public override async Task<resAreaAll> GetAllArea(AreaEmpty request, ServerCallContext context)
         {
             log.LogInformation("Call Area Service GetAll");

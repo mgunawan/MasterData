@@ -37,7 +37,7 @@ namespace MasterData.Services
             }
             catch (Exception ex)
             {
-                context.Status = new Status(StatusCode.Aborted, "Error on create seervice type");
+                context.Status = new Status(StatusCode.Cancelled, "Error on create seervice type");
                 log.LogError("Error on create service type " + ex.Message);
                 return new ServiceTypeEmpty { Message = "FAILED" };
             }
@@ -60,7 +60,7 @@ namespace MasterData.Services
             }
             catch (Exception ex)
             {
-                context.Status = new Status(StatusCode.Aborted, "Error on create seervice type");
+                context.Status = new Status(StatusCode.Cancelled, "Error on create seervice type");
                 log.LogError("Error on create service type " + ex.Message);
                 return new ServiceTypeEmpty { Message = "FAILED" };
             }
@@ -88,7 +88,7 @@ namespace MasterData.Services
             catch(Exception ex)
             {
                 log.LogError($"Error when call MasterData.VehicleServiceType:GetById {ex.Message}");
-                context.Status = new Status(StatusCode.Aborted, $"Error when call MasterData.VehicleServiceType:GetById {ex.Message}");
+                context.Status = new Status(StatusCode.NotFound, $"Error when call MasterData.VehicleServiceType:GetById {ex.Message}");
                 return default(ServiceTypeModel);
             }
         }
@@ -120,7 +120,7 @@ namespace MasterData.Services
             catch(Exception ex)
             {
                 log.LogError($"ERROR when call VehicleTypeService.GetListService {ex.Message}");
-                context.Status = new Status(StatusCode.Aborted, $"Error on call VehicleTypeService.GetListService {ex.Message}");
+                context.Status = new Status(StatusCode.NotFound, $"Error on call VehicleTypeService.GetListService {ex.Message}");
                 return default(resGetAll);
             }
         }

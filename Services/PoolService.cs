@@ -66,7 +66,7 @@ namespace MasterData.Services
             catch (Exception ex)
             {
                 log.LogInformation("FAILED insert data, error " + ex.Message);
-                context.Status = new Status(StatusCode.Aborted, $"Create pool with id {request.Id} failed.");
+                context.Status = new Status(StatusCode.Cancelled, $"Create pool with id {request.Id} failed.");
                 return new PoolEmpty { Message = "FAILED" };
             }
         }
@@ -243,7 +243,7 @@ namespace MasterData.Services
             }
             catch (Exception ex)
             {
-                context.Status = new Status(StatusCode.Aborted, $"Error for request GetAllPool {ex.Message}");
+                context.Status = new Status(StatusCode.NotFound, $"Error for request GetAllPool {ex.Message}");
                 log.LogError("ERROR : " + ex.Message);
                 return null;
             }

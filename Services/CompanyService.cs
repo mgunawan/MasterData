@@ -41,7 +41,7 @@ namespace MasterData.Services
             }
             catch (Exception ex)
             {
-                context.Status = new Status(StatusCode.Aborted, "Error create company " + ex.Message);
+                context.Status = new Status(StatusCode.Cancelled, "Error create company " + ex.Message);
                 log.LogError("Error when create Company.Create" + ex.Message);
                 return new CompanyEmpty { Message = "FAILED" };
             }
@@ -70,7 +70,7 @@ namespace MasterData.Services
             catch (Exception ex)
             {
                 log.LogError("Error call CompanyService.GetAll " + ex.Message);
-                context.Status = new Status(StatusCode.Aborted, "Error create company " + ex.Message);
+                context.Status = new Status(StatusCode.NotFound, "Error create company " + ex.Message);
                 return null;
 
             }
@@ -94,7 +94,7 @@ namespace MasterData.Services
             catch (Exception ex)
             {
                 log.LogError("Error call CompanyService.GetById " + ex.Message);
-                context.Status = new Status(StatusCode.Aborted, "Error get id company " + ex.Message);
+                context.Status = new Status(StatusCode.NotFound, "Error get id company " + ex.Message);
                 return null;
             }
         }
@@ -114,7 +114,7 @@ namespace MasterData.Services
             catch (Exception ex)
             {
                 log.LogError("Error call CompanyService.Update " + ex.Message);
-                context.Status = new Status(StatusCode.Aborted, "Error update company " + ex.Message);
+                context.Status = new Status(StatusCode.Cancelled, "Error update company " + ex.Message);
                 return null;
             }
         }

@@ -2,13 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: masterdata-bbone
-  name: masterdata-bbone
+    app: masterdata
+  name: masterdata
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: masterdata-bbone
+      app: masterdata
   strategy:
     rollingUpdate:
       # This should be set to 0 if we only have 1 replica defined
@@ -16,19 +16,19 @@ spec:
   template:
     metadata:
       labels:
-        app: masterdata-bbone
+        app: masterdata
     spec:
       volumes:
       - name: appsettings-volume
         configMap:
-          name: configmap-masterdata-bbone
+          name: configmap-masterdata
       - name: google-cloud-key
         secret:
          secretName: pubsub-key
       - name: workdir
         emptyDir: {}
       containers:
-      - name: masterdata-bbone
+      - name: masterdata
         image: asia.gcr.io/$NAMESPACE/masterdata-bbone:$BUILD_NUMBER
         readinessProbe:
           httpGet:
@@ -68,9 +68,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: masterdata-bbone
+  name: masterdata
   labels:
-    app: masterdata-bbone
+    app: masterdata
   annotations:
     cloud.google.com/app-protocols: '{"grpc":"HTTP2"}'
 spec:
@@ -88,5 +88,5 @@ spec:
     port: 4023
     targetPort: 4023  
   selector:
-    app: masterdata-bbone        
+    app: masterdata        
       

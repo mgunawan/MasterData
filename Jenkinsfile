@@ -1,12 +1,19 @@
+def Tag_Release() {
+    sh 'git describe --tags --abbrev=0 > Tag_Release'
+    def Tag_Release = readFile('Tag_Release').trim()
+    sh 'rm Tag_Release'
+    Tag_Release
+}
+
 pipeline {
     agent {
         node {
             label 'slave-00'
-            customWorkspace "workspace/${env.BRANCH_NAME}/src/git.bluebird.id/bb-core/MasterData"
+            customWorkspace "workspace/${env.BRANCH_NAME}/src/git.bluebird.id/bb-core/masterdata"
         }
     }
     environment {
-        VERSION = '1.0.0'
+        SERVICE = 'masterdata'
     }
     options {
         buildDiscarder(logRotator(daysToKeepStr: env.BRANCH_NAME == 'master' ? '90' : '30'))
@@ -19,6 +26,70 @@ pipeline {
             steps {
                 echo 'Checking out from Git'
                 checkout scm
+            }
+        }
+
+        stage('Prepare') {
+            steps {
+                withCredentials([file(credentialsId: '3521ab7f-3916-4e56-a41e-c0dedd2e98e9', variable: 'sa')]) {
+                sh "cp $sa service-account.json"
+                sh "chmod 644 service-account.json"
+                sh "docker login -u _json_key --password-stdin https://asia.gcr.io < service-account.json"
+                }
+            }
+        }
+
+        stage('Build and Deploy') {
+            environment {
+                VERSION_PREFIX = '1.0'
+            }
+            stages {
+                stage('Deploy to development') {
+                    when {
+                        branch 'develop'
+                    }
+                    environment {
+                        ALPHA = "${env.VERSION_PREFIX}-alpha${env.BUILD_NUMBER}"
+                        NAMESPACE="helical-element-182307"
+                    }
+                    steps {
+                        withCredentials([file(credentialsId: '5c10e288-081b-4f1d-a893-c1849689ea46', variable: 'kubeconfig')]) {
+                        sh "cp $kubeconfig kubeconfig.conf"
+                        sh "chmod 644 kubeconfig.conf"
+                        sh "gcloud auth activate-service-account --key-file service-account.json"
+                        sh 'chmod +x ./build.sh'
+                        sh './build.sh $ALPHA'
+                        sh 'chmod +x ./deploy.sh'
+                        sh './deploy.sh $ALPHA $NAMESPACE bb-core'
+                        sh 'rm kubeconfig.conf service-account.json'
+                        }
+                    }
+                }
+                stage('Deploy to production') {
+                    when {
+                        branch 'master'
+                    }
+                    environment {
+                        NAMESPACE="helical-element-182307"
+                        VERSION = VersionNumber([
+                            versionNumberString: '${BUILDS_ALL_TIME}',
+                            worstResultForIncrement: 'SUCCESS',
+                            versionPrefix : '1.0.'
+                        ]);
+                    }
+                    steps {
+                        withCredentials([file(credentialsId: '989a73e2-e27d-4760-8a71-baaef9f24102', variable: 'kubeconfig')]) {
+                            sh "cp $kubeconfig kubeconfig.conf"
+                            sh "chmod 644 kubeconfig.conf"
+                            sh "gcloud auth activate-service-account --key-file service-account.json"   
+                            sh 'chmod +x build.sh'
+                            sh './build.sh $VERSION'
+                            sh 'chmod +x deploy.sh'
+                            sh './deploy.sh $VERSION $NAMESPACE bb-core'
+                            sh 'rm kubeconfig.conf service-account.json'
+                        }
+                    }
+                }
             }
         }
     }

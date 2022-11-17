@@ -53,7 +53,7 @@ pipeline {
                         NAMESPACE="helical-element-182307"
                     }
                     steps {
-                        withCredentials([file(credentialsId: '5c10e288-081b-4f1d-a893-c1849689ea46', variable: 'kubeconfig')]) {
+                        withCredentials([file(credentialsId: 'b5da36c4-6c1c-495e-b17f-839796f54f0a', variable: 'kubeconfig')]) {
                         sh "cp $kubeconfig kubeconfig.conf"
                         sh "chmod 644 kubeconfig.conf"
                         sh "gcloud auth activate-service-account --key-file service-account.json"
@@ -78,7 +78,7 @@ pipeline {
                         ]);
                     }
                     steps {
-                        withCredentials([file(credentialsId: '989a73e2-e27d-4760-8a71-baaef9f24102', variable: 'kubeconfig')]) {
+                        withCredentials([file(credentialsId: 'fc546846-ed20-4786-bf38-6ab212e032eb', variable: 'kubeconfig')]) {
                             sh "cp $kubeconfig kubeconfig.conf"
                             sh "chmod 644 kubeconfig.conf"
                             sh "gcloud auth activate-service-account --key-file service-account.json"   

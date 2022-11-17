@@ -11,8 +11,8 @@ Copy Protos/Area.proto MasterData/Protos/Area.proto
 Copy Protos/Company.proto MasterData/Protos/Company.proto
 Copy Protos/Pool.proto MasterData/Protos/Pool.proto
 Copy Protos/ServiceType.proto MasterData/Protos/ServiceType.proto
-Copy Google/api/annotations.proto MasterData/Google/api/annotations.proto
-COPY Google/api/http.proto MasterData/Google/api/http.proto
+Copy google/api/annotations.proto MasterData/google/api/annotations.proto
+COPY google/api/http.proto MasterData/google/api/http.proto
 COPY . .
 RUN dotnet restore "MasterData/MasterData.csproj" 
 

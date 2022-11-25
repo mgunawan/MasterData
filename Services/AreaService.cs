@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using System.Text;
 using Google.Cloud.PubSub.V1;
 using Microsoft.AspNetCore.Authorization;
+using Common.Logging;
 
 namespace MasterData.Services
 {
@@ -31,7 +32,7 @@ namespace MasterData.Services
         {
             try
             {
-                log.LogInformation("Begin call service Area:AddArea");
+                SDLogging.LOG($"Begin call service AddArea: {request.Name}");
                 var oArea = mapper.Map<Models.Area>(request);
                 var res = await repo.db().Create(oArea);
                 if (res)
@@ -45,6 +46,7 @@ namespace MasterData.Services
             {
                 context.Status = new Status(StatusCode.Aborted, "Failed insert new area, error " + ex.Message);
                 log.LogError(ex.Message);
+                SDLogging.LOG(ex.Message,SDLogging.ERROR);
                 throw;
             }
         }
@@ -53,6 +55,7 @@ namespace MasterData.Services
         {
             try
             {
+                SDLogging.LOG($"Begin call service GetAreaById: {request.Id}");
                 Models.Area ret = await repo.cache().GetById(request.Id);
                 if (ret == null)
                 {
@@ -73,7 +76,7 @@ namespace MasterData.Services
             catch(Exception ex)
             {
                 context.Status = new Status(StatusCode.Aborted, "Failed find area, error " + ex.Message);
-                log.LogError(ex.Message);
+                SDLogging.LOG(ex.Message,SDLogging.ERROR);
                 throw;
             }
         }

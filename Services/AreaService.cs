@@ -32,7 +32,7 @@ namespace MasterData.Services
         {
             try
             {
-                SDLogging.LOG($"Begin call service AddArea: {request.Name}");
+                SDLogging.Log($"Begin call service AddArea: {request.Name}");
                 var oArea = mapper.Map<Models.Area>(request);
                 var res = await repo.db().Create(oArea);
                 if (res)
@@ -46,7 +46,7 @@ namespace MasterData.Services
             {
                 context.Status = new Status(StatusCode.Aborted, "Failed insert new area, error " + ex.Message);
                 log.LogError(ex.Message);
-                SDLogging.LOG(ex.Message,SDLogging.ERROR);
+                SDLogging.Log(ex.Message,SDLogging.ERROR);
                 throw;
             }
         }
@@ -55,7 +55,7 @@ namespace MasterData.Services
         {
             try
             {
-                SDLogging.LOG($"Begin call service GetAreaById: {request.Id}");
+                SDLogging.Log($"Begin call service GetAreaById: {request.Id}");
                 Models.Area ret = await repo.cache().GetById(request.Id);
                 if (ret == null)
                 {
@@ -76,7 +76,7 @@ namespace MasterData.Services
             catch(Exception ex)
             {
                 context.Status = new Status(StatusCode.Aborted, "Failed find area, error " + ex.Message);
-                SDLogging.LOG(ex.Message,SDLogging.ERROR);
+                SDLogging.Log(ex.Message,SDLogging.ERROR);
                 throw;
             }
         }

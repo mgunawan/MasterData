@@ -14,7 +14,7 @@ using MasterData.Repositories.Cache;
 using System.Net;
 using MasterData.Company.Protos;
 using Elastic.Apm.NetCoreAll;
-
+using MasterData.Region.Protos;
 
 namespace MasterData
 {
@@ -104,6 +104,8 @@ namespace MasterData
             services.AddScoped<CompanyCache>();
             services.AddScoped<ServiceTypeDb>();
             services.AddScoped<ServiceTypeCache>();
+            services.AddScoped<RegionDb>();
+            services.AddScoped<RegionCache>();
 
             //services.AddScoped<CompanyClient>();
 
@@ -111,10 +113,12 @@ namespace MasterData
             services.AddScoped<IAreaRepository, AreaRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
+            services.AddScoped<IRegionRepository, RegionRepository>();
 
             services.AddScoped<PoolGrpcService.PoolGrpcServiceBase, PoolService>();
             services.AddScoped<AreaGrpcService.AreaGrpcServiceBase, AreaService>();
             services.AddScoped<CompanyGrpcService.CompanyGrpcServiceBase, CompanyService>();
+            services.AddScoped<RegionGrpcService.RegionGrpcServiceBase, RegionService>();
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -158,6 +162,7 @@ namespace MasterData
                 endpoints.MapGrpcService<AreaService>();
                 endpoints.MapGrpcService<CompanyService>();
                 endpoints.MapGrpcService<VehicleTypeService>();
+                endpoints.MapGrpcService<RegionService>();
 
                 endpoints.MapGrpcReflectionService(); //  Focus!!!
                 endpoints.MapGet("/", async context =>

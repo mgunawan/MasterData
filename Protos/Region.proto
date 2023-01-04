@@ -1,0 +1,137 @@
+syntax = "proto3";
+option csharp_namespace = "MasterData.Region.Protos";
+
+import "google/protobuf/wrappers.proto";
+import "google/api/annotations.proto";
+
+service RegionGrpcService {
+    rpc GetRegionById (IdRequest) returns (RegionGrpc) {
+        option (google.api.http) = {
+            get : "/v1/region/region/{id}"
+        };
+    };
+    rpc GetProvinceById (IdRequest) returns (ProvinceGrpc) {
+        option (google.api.http) = {
+            get : "/v1/region/province/{id}"
+        };
+    };
+    rpc GetAllProvinces (EmptyRequest) returns (ProvincesGrpc) {
+        option (google.api.http) = {
+            get : "/v1/region/provinces"
+        };
+    };
+    rpc GetCityById (IdRequest) returns (CityGrpc) {
+        option (google.api.http) = {
+            get : "/v1/region/city/{id}"
+        };
+    };
+    rpc GetCitiesByProvinceId (IdRequest) returns (CitiesGrpc) {
+        option (google.api.http) = {
+            get : "/v1/region/cities/{id}"
+        };
+    };    
+    rpc GetDistrictById (IdRequest) returns (DistrictGrpc) {
+        option (google.api.http) = {
+            get : "/v1/region/district/{id}"
+        };
+    };
+    rpc GetDistrictsByCityId (IdRequest) returns (DistrictsGrpc) {
+        option (google.api.http) = {
+            get : "/v1/region/districts/{id}"
+        };
+    };
+    rpc GetSubDistrictById (IdRequest) returns (SubDistrictGrpc) {
+        option (google.api.http) = {
+            get : "/v1/region/subdistrict/{id}"
+        };
+    };
+    rpc GetSubDistrictsByDistrictId (IdRequest) returns (SubDistrictsGrpc) {
+        option (google.api.http) = {
+            get : "/v1/region/subdistricts/{id}"
+        };
+    };
+}
+
+message IdRequest {
+    int32 id = 1;
+}
+
+message EmptyRequest {
+    string message = 1;
+}
+
+message RegionGrpc {
+    int32 id = 1;
+    int32 province_id = 2;
+    google.protobuf.StringValue province_name = 3;
+    int32 city_id = 4;
+    google.protobuf.StringValue city_name = 5;
+    google.protobuf.StringValue city_type = 6;
+    int32 district_id = 7;
+    google.protobuf.StringValue district_name = 8;
+    google.protobuf.StringValue sub_district_name = 9;
+    int32 postal_code = 10;
+    google.protobuf.StringValue region_code = 11;
+}
+
+//The model of province
+message ProvinceGrpc {
+    int32 id = 1;
+    google.protobuf.StringValue name = 2;
+    google.protobuf.StringValue created_by = 3;
+    google.protobuf.StringValue created_at = 4;
+    google.protobuf.StringValue updated_by = 5;
+    google.protobuf.StringValue updated_at = 6;
+}
+
+message ProvincesGrpc {
+    repeated ProvinceGrpc provinces = 1;
+}
+
+//The model of city
+message CityGrpc {
+    int32 id = 1;
+    google.protobuf.StringValue name = 2;
+    google.protobuf.StringValue city_type = 3;
+    int32 province_id = 4;
+    google.protobuf.StringValue created_by = 5;
+    google.protobuf.StringValue created_at = 6;
+    google.protobuf.StringValue updated_by = 7;
+    google.protobuf.StringValue updated_at = 8;
+}
+
+message CitiesGrpc {
+    repeated CityGrpc cities = 1;
+}
+
+//The model of district
+message DistrictGrpc {
+    int32 id = 1;
+    google.protobuf.StringValue name = 2;
+    int32 city_id = 3;
+    google.protobuf.StringValue created_by = 4;
+    google.protobuf.StringValue created_at = 5;
+    google.protobuf.StringValue updated_by = 6;
+    google.protobuf.StringValue updated_at = 7;
+}
+
+message DistrictsGrpc {
+    repeated DistrictGrpc districts = 1;
+}
+
+//The model of sub-district
+message SubDistrictGrpc {
+    int32 id = 1;
+    google.protobuf.StringValue name = 2;
+    int32 postal_code = 3;
+    google.protobuf.StringValue region_code = 4;
+    int32 district_id = 5;
+    google.protobuf.StringValue created_by = 6;
+    google.protobuf.StringValue created_at = 7;
+    google.protobuf.StringValue updated_by = 8;
+    google.protobuf.StringValue updated_at = 9;
+}
+
+message SubDistrictsGrpc {
+    repeated SubDistrictGrpc sub_districs = 1;
+}

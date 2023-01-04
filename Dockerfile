@@ -7,11 +7,12 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 
 COPY MasterData.csproj MasterData/MasterData.csproj
-Copy Protos/Area.proto MasterData/Protos/Area.proto
-Copy Protos/Company.proto MasterData/Protos/Company.proto
-Copy Protos/Pool.proto MasterData/Protos/Pool.proto
-Copy Protos/ServiceType.proto MasterData/Protos/ServiceType.proto
-Copy google/api/annotations.proto MasterData/google/api/annotations.proto
+COPY Protos/Area.proto MasterData/Protos/Area.proto
+COPY Protos/Company.proto MasterData/Protos/Company.proto
+COPY Protos/Pool.proto MasterData/Protos/Pool.proto
+COPY Protos/ServiceType.proto MasterData/Protos/ServiceType.proto
+COPY Protos/Region.proto MasterData/Protos/Region.proto
+COPY google/api/annotations.proto MasterData/google/api/annotations.proto
 COPY google/api/http.proto MasterData/google/api/http.proto
 COPY . .
 RUN dotnet restore "MasterData/MasterData.csproj" 

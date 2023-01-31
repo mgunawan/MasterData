@@ -38,6 +38,7 @@ service CompanyGrpcService{
 			get : "/v1/company/{id}"
 		};
 	}
+
 	rpc GetAll(CompanyEmpty) returns (resCompanyAll){
 		option(google.api.http) = {
 			get : "/v1/company"

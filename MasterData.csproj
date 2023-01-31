@@ -15,6 +15,7 @@
 		<None Remove="Extentions\init_data_pool.sql" />
 		<None Remove="Extentions\init_data_servicetype.sql" />
 		<None Remove="Protos\Area.proto" />
+		<None Remove="Protos\Common2ArrayList.proto" />
 		<None Remove="Protos\Company.proto" />
 		<None Remove="Protos\Pool.proto" />
 		<None Remove="Protos\ServiceType.proto" />
@@ -44,7 +45,6 @@
 		<PackageReference Include="Google.Cloud.PubSub.V1" Version="3.2.0" />
 		<PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
 		<PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.49.0" />
-		<PackageReference Include="Grpc.Net.ClientFactory" Version="2.49.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Grpc.JsonTranscoding" Version="7.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Grpc.Swagger" Version="0.3.0" />
 		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.9" />
@@ -64,6 +64,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Protobuf Include="Protos\Common2ArrayList.proto" GrpcServices="Server" />
 		<Protobuf Include="Protos\Company.proto" GrpcServices="Server" />
 		<Protobuf Include="Protos\Pool.proto" GrpcServices="Server" />
 		<Protobuf Include="Protos\Area.proto" GrpcServices="Server" />

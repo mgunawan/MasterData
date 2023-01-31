@@ -1,0 +1,98 @@
+syntax = "proto3";
+
+option csharp_namespace = "MasterData.Common2List.Protos";
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+
+message EnumCommon{
+	int32 id = 1;
+	string description = 2;
+}
+
+message resEnumCommon{
+	repeated EnumCommon list = 1;
+}
+
+service EnumCommon2ListService{
+	rpc GetAssesment(google.protobuf.Empty) returns (resEnumCommon){
+		option (google.api.http) = {
+			get: "/v1/enum/assessment"
+		};
+	}
+
+	rpc GetClothesSize(google.protobuf.Empty) returns (resEnumCommon){
+		option (google.api.http) = {
+			get: "/v1/enum/clothessize"
+		};
+	}
+
+	rpc GetDriverClass(google.protobuf.Empty) returns (resEnumCommon){
+		option (google.api.http) = {
+			get: "/v1/enum/driverclass"
+		};
+	}
+
+	rpc GetDriverLicense(google.protobuf.Empty) returns (resEnumCommon){
+		option (google.api.http) = {
+			get: "/v1/enum/driverlicense"
+		};
+	}
+
+	rpc GetDriverShift(google.protobuf.Empty) returns (resEnumCommon){
+		option (google.api.http) = {
+			get: "/v1/enum/drivershift"
+		};
+	}
+
+	rpc GetDriverStatus(google.protobuf.Empty) returns (resEnumCommon){
+		option (google.api.http) = {
+			get: "/v1/enum/driverstatus"
+		};
+	}
+	rpc GetDriverType(google.protobuf.Empty) returns (resEnumCommon){
+		option (google.api.http) = {
+			get: "/v1/enum/drivertype"
+		};
+	}
+	rpc GetEducation(google.protobuf.Empty) returns (resEnumCommon){
+		option (google.api.http) = {
+			get: "/v1/enum/education"
+		};
+	}
+	rpc GetEthnic(google.protobuf.Empty) returns (resEnumCommon){
+		option (google.api.http) = {
+			get: "/v1/enum/ethnic"
+		};
+	}
+	rpc GetGender(google.protobuf.Empty) returns (resEnumCommon){
+		option (google.api.http) = {
+			get: "/v1/enum/gender"
+		};
+	}
+	rpc GetMaritalStatus(google.protobuf.Empty) returns (resEnumCommon){
+		option (google.api.http) = {
+			get: "/v1/enum/maritalstatus"
+		};
+	}
+	rpc GetReferralStatus(google.protobuf.Empty) returns (resEnumCommon){
+		option (google.api.http) = {
+			get: "/v1/enum/refrerralstatus"
+		};
+	}
+	rpc GetServiceType(google.protobuf.Empty) returns (resEnumCommon){
+		option (google.api.http) = {
+			get: "/v1/enum/servicetype"
+		};
+	}
+	rpc GetVehicleStatus(google.protobuf.Empty) returns (resEnumCommon){
+		option (google.api.http) = {
+			get: "/v1/enum/vehiclestatus"
+		};
+	}
+	rpc GetReligion(google.protobuf.Empty) returns (resEnumCommon){
+		option (google.api.http) = {
+			get: "/v1/enum/religion"
+		};
+	}
+}

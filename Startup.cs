@@ -163,6 +163,7 @@ namespace MasterData
                 endpoints.MapGrpcService<CompanyService>();
                 endpoints.MapGrpcService<VehicleTypeService>();
                 endpoints.MapGrpcService<RegionService>();
+                endpoints.MapGrpcService<CommonService>();
 
                 endpoints.MapGrpcReflectionService(); //  Focus!!!
                 endpoints.MapGet("/", async context =>

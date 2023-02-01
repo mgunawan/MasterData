@@ -156,9 +156,9 @@ namespace MasterData.Extensions
 
             if (alterTable)
             {
-                //if (!TableExist(command, "mt_pool_company"))
+                //if (!TableExist(command, "mst_company_service"))
                 //{
-                //    command.CommandText = @"CREATE TABLE mt_pool_company (
+                //    command.CommandText = @"CREATE TABLE mst_company_service (
                 //                                pool_id varchar(255) NOT NULL,                                                
                 //                                company_id varchar(255) NOT NULL,
                 //                                PRIMARY KEY (pool_id, company_id),
@@ -167,11 +167,11 @@ namespace MasterData.Extensions
                 //    command.ExecuteNonQuery();
                 //}
 
-                string upgradeTable = $@"ALTER TABLE mst_pool_company " +
-                    "ADD createon datetime," +
-                    "ADD updateon datetime;";
-                command.CommandText = upgradeTable;
-                command.ExecuteNonQuery();
+                //string upgradeTable = $@"ALTER TABLE mst_pool_company " +
+                //    "ADD createon datetime," +
+                //    "ADD updateon datetime;";
+                //command.CommandText = upgradeTable;
+                //command.ExecuteNonQuery();
 
                 //update migration
                 command.CommandText = $"INSERT into db_migration (version, execute_at) values ('{curVersion}','{DateTime.Now.ToString("yyyyMMdd HHmmss")}');";

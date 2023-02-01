@@ -10,6 +10,7 @@ using Common.Helpers;
 using Google.Protobuf;
 using System.Runtime.InteropServices;
 using MasterData.Models.Dummy;
+using MongoDB.Bson.Serialization.Serializers;
 
 namespace MasterData.Services
 {

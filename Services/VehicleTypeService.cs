@@ -37,7 +37,7 @@ namespace MasterData.Services
             }
             catch (Exception ex)
             {
-                context.Status = new Status(StatusCode.Cancelled, "Error on create seervice type");
+                context.Status = new Status(StatusCode.Cancelled, $"Error on create service type, error {ex.Message}");
                 log.LogError("Error on create service type " + ex.Message);
                 return new ServiceTypeEmpty { Message = "FAILED" };
             }
@@ -99,11 +99,11 @@ namespace MasterData.Services
             {
                 log.LogInformation("Begin call service VehicleTypeService.GetListService.");
                 var ret = new resGetAll();
-                var listServiceType = await repo.cache().GetListCache();
+                var listServiceType = await repo.cache().GetListCache(request.PoolId);
                 if (listServiceType == null)
                 {
                     listServiceType = await repo.db().GetAll(request.PoolId);
-                    await repo.cache().SetListCache(listServiceType);
+                    await repo.cache().SetListCache(listServiceType, request.PoolId);
                 }
 
                 foreach (var item in listServiceType)

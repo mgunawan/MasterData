@@ -53,6 +53,17 @@ enum StatusPool{
     PARENT = 1;
 }
 
+enum ServiceType{
+    NONE = 0;
+    REGULAR = 1;
+    SILVER = 2;
+    GOLDEN = 3;
+    BUS = 4;
+    TRUCK = 5;
+    SHUTTLE = 6;
+    OUTSOURCE = 7;
+}
+
 message ReqDeletePoolById {
     string id = 1;
 }

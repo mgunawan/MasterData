@@ -9,7 +9,7 @@ namespace MasterData.Models.Dummy
         public string CompanyId { get; set; }
         public string Name { get; set; }
         //public bool IsInduk { get; set; }
-        public string  ServiceType { get; set; }
+        public string ServiceType { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreateOn { get; set; }
         public DateTime UpdateOn { get; set; }

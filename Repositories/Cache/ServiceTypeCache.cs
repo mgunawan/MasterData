@@ -28,19 +28,19 @@ namespace MasterData.Repositories.Cache
             return JsonConvert.DeserializeObject<Models.VM.ServiceType>(o);
         }
 
-        public async Task<bool> SetListCache(List<Models.VM.ServiceType> o)
+        public async Task<bool> SetListCache(List<Models.VM.ServiceType> o, string id)
         {
             if (o != null)
-                await _cache.SetStringAsync($"VM.BB1.lServiceType", JsonConvert.SerializeObject(o), new DistributedCacheEntryOptions
+                await _cache.SetStringAsync($"VM.BB1.lServiceType.{id}", JsonConvert.SerializeObject(o), new DistributedCacheEntryOptions
                 {
                     AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(7)
                 });
             return true;
         }
 
-        public async Task<List<Models.VM.ServiceType>> GetListCache()
+        public async Task<List<Models.VM.ServiceType>> GetListCache(string id)
         {
-            var o = await _cache.GetStringAsync($"VM.BB1.lServiceType");
+            var o = await _cache.GetStringAsync($"VM.BB1.lServiceType.{id}");
             if (o != null)
                 return JsonConvert.DeserializeObject<List<Models.VM.ServiceType>>(o);
 

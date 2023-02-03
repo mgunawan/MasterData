@@ -131,11 +131,6 @@ namespace MasterData
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MasterData.Service", Version = "v1" });
-                //c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
-
-                //var filePath = Path.Combine(System.AppContext.BaseDirectory, "Server.xml");
-                //c.IncludeXmlComments(filePath);
-                //c.IncludeGrpcXmlComments(filePath, includeControllerXmlComments: true);
             });
             services.AddHealthChecks();
         }
@@ -149,7 +144,7 @@ namespace MasterData
             }
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MasterData.Service v1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("v1/swagger.json", "MasterData.Service v1"));
 
             app.UseRouting();
 

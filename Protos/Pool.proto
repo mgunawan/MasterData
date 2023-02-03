@@ -54,10 +54,10 @@ enum StatusPool{
 }
 
 enum ServiceType{
-    NONE = 0;
-    REGULAR = 1;
-    SILVER = 2;
-    GOLDEN = 3;
+    UNKNOWN = 0;
+    REGULER = 1;
+    EXECUTIVE = 2;
+    LIMO = 3;
     BUS = 4;
     TRUCK = 5;
     SHUTTLE = 6;

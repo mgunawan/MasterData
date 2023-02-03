@@ -64,12 +64,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Protobuf Include="Protos\Common2ArrayList.proto" GrpcServices="Server" />
-		<Protobuf Include="Protos\Company.proto" GrpcServices="Server" />
-		<Protobuf Include="Protos\Pool.proto" GrpcServices="Server" />
-		<Protobuf Include="Protos\Area.proto" GrpcServices="Server" />
-		<Protobuf Include="Protos\ServiceType.proto" GrpcServices="Server" />
-		<Protobuf Include="Protos\Region.proto" GrpcServices="Server" />
+		<Protobuf Include="Protos\Common2ArrayList.proto" GrpcServices="Both" />
+		<Protobuf Include="Protos\Company.proto" GrpcServices="Both" />
+		<Protobuf Include="Protos\Pool.proto" GrpcServices="Both" />
+		<Protobuf Include="Protos\Area.proto" GrpcServices="Both" />
+		<Protobuf Include="Protos\ServiceType.proto" GrpcServices="Both" />
+		<Protobuf Include="Protos\Region.proto" GrpcServices="Both" />
 	</ItemGroup>
 
 </Project>

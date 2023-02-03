@@ -95,4 +95,9 @@ service EnumCommon2ListService{
 			get: "/v1/enum/religion"
 		};
 	}
+	rpc GetIotStatus(google.protobuf.Empty) returns (resEnumCommon){
+		option (google.api.http) = {
+			get: "/v1/enum/iotstatus"
+		};
+	}
 }

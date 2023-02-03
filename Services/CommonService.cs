@@ -14,15 +14,23 @@ namespace MasterData.Services
         {
             var oRet = new EnumCommon();
             var ret = new resEnumCommon();
-            var lAss = Common.Enums.EnumHelper.Enum2List<Common.Enums.AssesmentScore>();
-            ArrayList arrayList = new ArrayList(lAss);
-            for (int i = 0; i < lAss.Count; i++)
+            List<(int, AssesmentScore)> list = Common.Enums.EnumHelper.EnumToList<AssesmentScore>();
+            foreach ((int index, AssesmentScore value) in list)
             {
                 oRet = new EnumCommon();
-                oRet.Id = i;
-                oRet.Description = ((Common.Enums.AssesmentScore)i).ToString();
+                oRet.Id = (int)value;
+                oRet.Description = value.GetDescription();
                 ret.List.Add(oRet);
             }
+            //var lAss = Common.Enums.EnumHelper.Enum2List<Common.Enums.AssesmentScore>();
+            //ArrayList arrayList = new ArrayList(lAss);
+            //for (int i = 0; i < lAss.Count; i++)
+            //{
+            //    oRet = new EnumCommon();
+            //    oRet.Id = i;
+            //    oRet.Description = ((Common.Enums.AssesmentScore)i).ToString();
+            //    ret.List.Add(oRet);
+            //}
             return ret;
         }
 
@@ -30,13 +38,12 @@ namespace MasterData.Services
         {
             var oRet = new EnumCommon();
             var ret = new resEnumCommon();
-            var lAss = Common.Enums.EnumHelper.Enum2List<Common.Enums.Religion>();
-            ArrayList arrayList = new ArrayList(lAss);
-            for (int i = 0; i < lAss.Count; i++)
+            List<(int, Religion)> list = Common.Enums.EnumHelper.EnumToList<Religion>();
+            foreach ((int index, Religion value) in list)
             {
                 oRet = new EnumCommon();
-                oRet.Id = i;
-                oRet.Description = ((Common.Enums.Religion)i).ToString();
+                oRet.Id = (int)value;
+                oRet.Description = value.GetDescription();
                 ret.List.Add(oRet);
             }
             return ret;
@@ -46,13 +53,12 @@ namespace MasterData.Services
         {
             var oRet = new EnumCommon();
             var ret = new resEnumCommon();
-            var lAss = Common.Enums.EnumHelper.Enum2List<Common.Enums.Ethnic>();
-            ArrayList arrayList = new ArrayList(lAss);
-            for (int i = 0; i < lAss.Count; i++)
+            List<(int, Ethnic)> list = Common.Enums.EnumHelper.EnumToList<Ethnic>();
+            foreach ((int index, Ethnic value) in list)
             {
                 oRet = new EnumCommon();
-                oRet.Id = i;
-                oRet.Description = ((Common.Enums.Ethnic)i).ToString();
+                oRet.Id = (int)value;
+                oRet.Description = value.GetDescription();
                 ret.List.Add(oRet);
             }
             return ret;
@@ -62,13 +68,12 @@ namespace MasterData.Services
         {
             var oRet = new EnumCommon();
             var ret = new resEnumCommon();
-            var lAss = Common.Enums.EnumHelper.Enum2List<Common.Enums.Education>();
-            ArrayList arrayList = new ArrayList(lAss);
-            for (int i = 0; i < lAss.Count; i++)
+            List<(int, Education)> list = Common.Enums.EnumHelper.EnumToList<Education>();
+            foreach ((int index, Education value) in list)
             {
                 oRet = new EnumCommon();
-                oRet.Id = i;
-                oRet.Description = ((Common.Enums.Education)i).ToString();
+                oRet.Id = (int)value;
+                oRet.Description = value.GetDescription();
                 ret.List.Add(oRet);
             }
             return ret;
@@ -78,13 +83,12 @@ namespace MasterData.Services
         {
             var oRet = new EnumCommon();
             var ret = new resEnumCommon();
-            var lAss = Common.Enums.EnumHelper.Enum2List<Common.Enums.DriverType>();
-            ArrayList arrayList = new ArrayList(lAss);
-            for (int i = 0; i < lAss.Count; i++)
+            List<(int, DriverType)> list = Common.Enums.EnumHelper.EnumToList<DriverType>();
+            foreach ((int index, DriverType value) in list)
             {
                 oRet = new EnumCommon();
-                oRet.Id = i;
-                oRet.Description = ((Common.Enums.DriverType)i).ToString();
+                oRet.Id = (int)value;
+                oRet.Description = value.GetDescription();
                 ret.List.Add(oRet);
             }
             return ret;
@@ -94,13 +98,12 @@ namespace MasterData.Services
         {
             var oRet = new EnumCommon();
             var ret = new resEnumCommon();
-            var lAss = Common.Enums.EnumHelper.Enum2List<Common.Enums.ClothesSize>();
-            ArrayList arrayList = new ArrayList(lAss);
-            for (int i = 0; i < lAss.Count; i++)
+            List<(int, ClothesSize)> list = Common.Enums.EnumHelper.EnumToList<ClothesSize>();
+            foreach ((int index, ClothesSize value) in list)
             {
                 oRet = new EnumCommon();
-                oRet.Id = i;
-                oRet.Description = ((Common.Enums.ClothesSize)i).ToString();
+                oRet.Id = (int)value;
+                oRet.Description = value.GetDescription();
                 ret.List.Add(oRet);
             }
             return ret;
@@ -110,13 +113,12 @@ namespace MasterData.Services
         {
             var oRet = new EnumCommon();
             var ret = new resEnumCommon();
-            var lAss = Common.Enums.EnumHelper.Enum2List<Common.Enums.DriverClass>();
-            ArrayList arrayList = new ArrayList(lAss);
-            for (int i = 0; i < lAss.Count; i++)
+            List<(int, DriverClass)> list = Common.Enums.EnumHelper.EnumToList<DriverClass>();
+            foreach ((int index, DriverClass value) in list)
             {
                 oRet = new EnumCommon();
-                oRet.Id = i;
-                oRet.Description = ((Common.Enums.DriverClass)i).ToString();
+                oRet.Id = (int)value;
+                oRet.Description = value.GetDescription();
                 ret.List.Add(oRet);
             }
             return ret;
@@ -126,13 +128,12 @@ namespace MasterData.Services
         {
             var oRet = new EnumCommon();
             var ret = new resEnumCommon();
-            var lAss = Common.Enums.EnumHelper.Enum2List<Common.Enums.DriverLicense>();
-            ArrayList arrayList = new ArrayList(lAss);
-            for (int i = 0; i < lAss.Count; i++)
+            List<(int, DriverLicense)> list = Common.Enums.EnumHelper.EnumToList<DriverLicense>();
+            foreach ((int index, DriverLicense value) in list)
             {
                 oRet = new EnumCommon();
-                oRet.Id = i;
-                oRet.Description = ((Common.Enums.DriverLicense)i).ToString();
+                oRet.Id = (int)value;
+                oRet.Description = value.GetDescription();
                 ret.List.Add(oRet);
             }
             return ret;
@@ -142,13 +143,12 @@ namespace MasterData.Services
         {
             var oRet = new EnumCommon();
             var ret = new resEnumCommon();
-            var lAss = Common.Enums.EnumHelper.Enum2List<Common.Enums.DriverShift>();
-            ArrayList arrayList = new ArrayList(lAss);
-            for (int i = 0; i < lAss.Count; i++)
+            List<(int, DriverShift)> list = Common.Enums.EnumHelper.EnumToList<DriverShift>();
+            foreach ((int index, DriverShift value) in list)
             {
                 oRet = new EnumCommon();
-                oRet.Id = i;
-                oRet.Description = ((Common.Enums.DriverShift)i).ToString();
+                oRet.Id = (int)value;
+                oRet.Description = value.GetDescription();
                 ret.List.Add(oRet);
             }
             return ret;
@@ -158,13 +158,12 @@ namespace MasterData.Services
         {
             var oRet = new EnumCommon();
             var ret = new resEnumCommon();
-            var lAss = Common.Enums.EnumHelper.Enum2List<Common.Enums.DriverStatus>();
-            ArrayList arrayList = new ArrayList(lAss);
-            for (int i = 0; i < lAss.Count; i++)
+            List<(int, DriverStatus)> list = Common.Enums.EnumHelper.EnumToList<DriverStatus>();
+            foreach ((int index, DriverStatus value) in list)
             {
                 oRet = new EnumCommon();
-                oRet.Id = i;
-                oRet.Description = ((Common.Enums.DriverStatus)i).ToString();
+                oRet.Id = (int)value;
+                oRet.Description = value.GetDescription();
                 ret.List.Add(oRet);
             }
             return ret;
@@ -174,13 +173,12 @@ namespace MasterData.Services
         {
             var oRet = new EnumCommon();
             var ret = new resEnumCommon();
-            var lAss = Common.Enums.EnumHelper.Enum2List<Common.Enums.Gender>();
-            ArrayList arrayList = new ArrayList(lAss);
-            for (int i = 0; i < lAss.Count; i++)
+            List<(int, Gender)> list = Common.Enums.EnumHelper.EnumToList<Gender>();
+            foreach ((int index, Gender value) in list)
             {
                 oRet = new EnumCommon();
-                oRet.Id = i;
-                oRet.Description = ((Common.Enums.Gender)i).ToString();
+                oRet.Id = (int)value;
+                oRet.Description = value.GetDescription();
                 ret.List.Add(oRet);
             }
             return ret;
@@ -190,13 +188,12 @@ namespace MasterData.Services
         {
             var oRet = new EnumCommon();
             var ret = new resEnumCommon();
-            var lAss = Common.Enums.EnumHelper.Enum2List<Common.Enums.MaritalStatus>();
-            ArrayList arrayList = new ArrayList(lAss);
-            for (int i = 0; i < lAss.Count; i++)
+            List<(int, MaritalStatus)> list = Common.Enums.EnumHelper.EnumToList<MaritalStatus>();
+            foreach ((int index, MaritalStatus value) in list)
             {
                 oRet = new EnumCommon();
-                oRet.Id = i;
-                oRet.Description = ((Common.Enums.MaritalStatus)i).ToString();
+                oRet.Id = (int)value;
+                oRet.Description = value.GetDescription();
                 ret.List.Add(oRet);
             }
             return ret;
@@ -206,13 +203,12 @@ namespace MasterData.Services
         {
             var oRet = new EnumCommon();
             var ret = new resEnumCommon();
-            var lAss = Common.Enums.EnumHelper.Enum2List<Common.Enums.ReferralStatus>();
-            ArrayList arrayList = new ArrayList(lAss);
-            for (int i = 0; i < lAss.Count; i++)
+            List<(int, ReferralStatus)> list = Common.Enums.EnumHelper.EnumToList<ReferralStatus>();
+            foreach ((int index, ReferralStatus value) in list)
             {
                 oRet = new EnumCommon();
-                oRet.Id = i;
-                oRet.Description = ((Common.Enums.ReferralStatus)i).ToString();
+                oRet.Id = (int)value;
+                oRet.Description = value.GetDescription();
                 ret.List.Add(oRet);
             }
             return ret;
@@ -222,13 +218,12 @@ namespace MasterData.Services
         {
             var oRet = new EnumCommon();
             var ret = new resEnumCommon();
-            var lAss = Common.Enums.EnumHelper.Enum2List<Common.Enums.ServiceType>();
-            ArrayList arrayList = new ArrayList(lAss);
-            for (int i = 0; i < lAss.Count; i++)
+            List<(int, ServiceType)> list = Common.Enums.EnumHelper.EnumToList<ServiceType>();
+            foreach ((int index, ServiceType value) in list)
             {
                 oRet = new EnumCommon();
-                oRet.Id = i;
-                oRet.Description = ((Common.Enums.ServiceType)i).ToString();
+                oRet.Id = (int)value;
+                oRet.Description = value.GetDescription();
                 ret.List.Add(oRet);
             }
             return ret;
@@ -238,14 +233,30 @@ namespace MasterData.Services
         {
             var oRet = new EnumCommon();
             var ret = new resEnumCommon();
-            var lAss = Common.Enums.EnumHelper.Enum2List<Common.Enums.VehicleStatus>();
-            ArrayList arrayList = new ArrayList(lAss);
-            for (int i = 0; i < lAss.Count; i++)
+            List<(int, VehicleStatus)> list = Common.Enums.EnumHelper.EnumToList<VehicleStatus>();
+            foreach ((int index, VehicleStatus value) in list)
             {
                 oRet = new EnumCommon();
-                oRet.Id = i;
-                oRet.Description = ((Common.Enums.VehicleStatus)i).ToString();
+                oRet.Id = (int)value;
+                oRet.Description = value.GetDescription();
                 ret.List.Add(oRet);
+            }
+            return ret;
+        }
+
+        //most for vehicle
+        public override async Task<resEnumCommon> GetIotStatus(Empty request, ServerCallContext context)
+        {
+            var oRet = new EnumCommon();
+            var ret = new resEnumCommon();
+            List<(int, IotStatus)> list = Common.Enums.EnumHelper.EnumToList<IotStatus>();
+            foreach ((int index, IotStatus value) in list)
+            {
+                oRet = new EnumCommon();
+                oRet.Id = (int)value;
+                oRet.Description = value.GetDescription();
+                ret.List.Add(oRet);
+                //Console.WriteLine($"Index: {index}, Value: {value}, Description: {value.GetDescription()}");
             }
             return ret;
         }

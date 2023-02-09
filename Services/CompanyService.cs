@@ -47,17 +47,22 @@ namespace MasterData.Services
             }
         }
 
-        public async override Task<resCompanyAll> GetAll(CompanyEmpty request, ServerCallContext context)
+        public async override Task<resCompanyAll> GetAll(reqGetAll request, ServerCallContext context)
         {
             try
             {
+                int rowPage = request.RowPage;
+                int page = request.Page;
+                string search = request.Search;
+                bool isDescending = request.IsDescending;
+
                 log.LogInformation($"Begin grpc call CompanyService.GetAll");
                 var lRet = new resCompanyAll();
 
                 List<Models.Company> ret = new List<Models.Company>();
                 ret = await repo.cache().GetCache();
                 if (ret == null)
-                    ret = await repo.db().GetAll();
+                    ret = await repo.db().GetAll(rowPage, page, search, isDescending);
 
                 foreach (var item in ret)
                 {

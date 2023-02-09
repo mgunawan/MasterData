@@ -14,6 +14,13 @@ message reqCompanyById{
 	string id = 1;
 }
 
+message reqGetAll{
+	string search = 1;
+	int32 row_page = 2;
+	int32 page = 3;
+	bool is_descending = 4;
+}
+
 message resCompanyAll{
 	repeated CompanyModel listCompany = 1;
 }
@@ -39,9 +46,10 @@ service CompanyGrpcService{
 		};
 	}
 
-	rpc GetAll(CompanyEmpty) returns (resCompanyAll){
+	rpc GetAll(reqGetAll) returns (resCompanyAll){
 		option(google.api.http) = {
-			get : "/v1/company"
+			post : "/v1/company",
+			body : "*"
 		};
 	}
 }

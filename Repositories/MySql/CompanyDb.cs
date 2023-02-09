@@ -23,10 +23,14 @@ namespace MasterData.Repositories.MySql
             return ret;
         }
 
-        public async Task<List<Models.Company>> GetAll()
+        public async Task<List<Models.Company>> GetAll(int itemPage, int page, string search, bool isDesc)
         {
             string sqlQuery = @"SELECT id, id2, name from mst_company
-                                where is_active = 1 order by id";
+                                where is_active = 1 ";
+            sqlQuery += search.Trim().Length > 0 ? $" and name like '%{search}%' " : "";
+            sqlQuery += $"LIMIT {itemPage} OFFSET {page - 1} ";
+            sqlQuery += "order by id ";
+            sqlQuery += isDesc ? "DESC " : "ASC ";
 
             var lComp = await _connection.QueryAsync<Models.Company>(sqlQuery);
             return (List<Models.Company>)lComp;
@@ -40,7 +44,7 @@ namespace MasterData.Repositories.MySql
                                 where (id = @id or id2 = @id)";
 
                 var oComp = await _connection.QueryFirstOrDefaultAsync<Models.Company>(sqlQuery, new { id = id, id2 = id });
-                if(oComp == null)
+                if (oComp == null)
                     throw new Exception("Company id not found.");
                 if (!oComp.IsActive)
                     throw new Exception("Company is not active, you cannot assign this company to pool");

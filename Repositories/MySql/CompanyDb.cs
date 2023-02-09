@@ -23,14 +23,26 @@ namespace MasterData.Repositories.MySql
             return ret;
         }
 
+        public async Task<List<Models.Company>> GetAll(int itemPage, int page, bool isDesc)
+        {
+            string sqlQuery = @"SELECT id, id2, name from mst_company
+                                where is_active = 1 ";
+            sqlQuery += "order by id ";
+            sqlQuery += isDesc ? "DESC " : "ASC ";
+            sqlQuery += $"LIMIT {itemPage} OFFSET {page - 1} ";
+
+            var lComp = await _connection.QueryAsync<Models.Company>(sqlQuery);
+            return (List<Models.Company>)lComp;
+        }
+
         public async Task<List<Models.Company>> GetAll(int itemPage, int page, string search, bool isDesc)
         {
             string sqlQuery = @"SELECT id, id2, name from mst_company
                                 where is_active = 1 ";
             sqlQuery += search.Trim().Length > 0 ? $" and name like '%{search}%' " : "";
-            sqlQuery += $"LIMIT {itemPage} OFFSET {page - 1} ";
             sqlQuery += "order by id ";
             sqlQuery += isDesc ? "DESC " : "ASC ";
+            sqlQuery += $"LIMIT {itemPage} OFFSET {page - 1} ";
 
             var lComp = await _connection.QueryAsync<Models.Company>(sqlQuery);
             return (List<Models.Company>)lComp;

@@ -11,9 +11,10 @@ namespace MasterData.Mappers
             CreateMap<Models.Area, Area.Protos.AreaModel>().ReverseMap();
             CreateMap<Models.Company, Company.Protos.CompanyModel>().ReverseMap();
             CreateMap<Models.VM.ServiceType, VM.Protos.ServiceTypeModel>().ReverseMap();
+            CreateMap<Models.Media, Media.Protos.MediaModel>().ReverseMap();
 
             #region Region
-                CreateMap<Models.Region, Region.Protos.RegionGrpc>().ReverseMap();
+            CreateMap<Models.Region, Region.Protos.RegionGrpc>().ReverseMap();
                 CreateMap<Models.Province,  Region.Protos.ProvinceGrpc>().ReverseMap();
                 CreateMap<Models.Provinces,  Region.Protos.ProvincesGrpc>().ReverseMap();
                 CreateMap<Models.City, Region.Protos.CityGrpc>().ReverseMap();

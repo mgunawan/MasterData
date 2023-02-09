@@ -47,7 +47,7 @@ namespace MasterData.Services
             }
         }
 
-        public async override Task<resCompanyAll> GetAll(reqGetAll request, ServerCallContext context)
+        public async override Task<resCompanyAll> GetByCriteria(reqGetAll request, ServerCallContext context)
         {
             try
             {
@@ -63,6 +63,40 @@ namespace MasterData.Services
                 ret = await repo.cache().GetCache();
                 if (ret == null)
                     ret = await repo.db().GetAll(rowPage, page, search, isDescending);
+
+                foreach (var item in ret)
+                {
+                    item.IsActive = true;
+                    var oComp = mapper.Map<CompanyModel>(item);
+                    lRet.ListCompany.Add(oComp);
+                }
+                return lRet;
+            }
+            catch (Exception ex)
+            {
+                log.LogError("Error call CompanyService.GetAll " + ex.Message);
+                context.Status = new Status(StatusCode.NotFound, "Error create company " + ex.Message);
+                return null;
+
+            }
+        }
+
+        public override async Task<resCompanyAll> GetAll(reqGetAll request, ServerCallContext context)
+        {
+            try
+            {
+                int rowPage = request.RowPage;
+                int page = request.Page;
+                string search = request.Search;
+                bool isDescending = request.IsDescending;
+
+                log.LogInformation($"Begin grpc call CompanyService.GetAll");
+                var lRet = new resCompanyAll();
+
+                List<Models.Company> ret = new List<Models.Company>();
+                ret = await repo.cache().GetCache();
+                if (ret == null)
+                    ret = await repo.db().GetAll(rowPage, page, isDescending);
 
                 foreach (var item in ret)
                 {

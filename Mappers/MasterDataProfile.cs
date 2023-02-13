@@ -1,4 +1,5 @@
 using AutoMapper;
+using MasterData.Models;
 
 namespace MasterData.Mappers
 {
@@ -12,6 +13,7 @@ namespace MasterData.Mappers
             CreateMap<Models.Company, Company.Protos.CompanyModel>().ReverseMap();
             CreateMap<Models.VM.ServiceType, VM.Protos.ServiceTypeModel>().ReverseMap();
             CreateMap<Models.Media, Media.Protos.MediaModel>().ReverseMap();
+            CreateMap<Models.WorkBackground, Workbackground.Protos.WorkBackgroundModel>().ReverseMap();
 
             #region Region
             CreateMap<Models.Region, Region.Protos.RegionGrpc>().ReverseMap();

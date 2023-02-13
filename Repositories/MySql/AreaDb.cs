@@ -16,23 +16,45 @@ namespace MasterData.Repositories.MySql
 
         public async Task<bool> Create(Models.Area o)
         {
-            string sqlQuery = "INSERT into mst_area (id, name) VALUES (@id, @name)";
-            var res = await _connection.ExecuteAsync(sqlQuery, new { id = o.Id, name = o.Name });
-            return res > 0;
+            try
+            {
+                string sqlQuery = "INSERT into mst_area (id, name) VALUES (@id, @name)";
+                var res = await _connection.ExecuteAsync(sqlQuery, new { id = o.Id, name = o.Name });
+                return res > 0;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public async Task<List<Models.Area>> GetAll()
         {
-            string sqlQuery = "SELECT id, name from mst_area";
-            var res = await _connection.QueryAsync<Models.Area>(sqlQuery);
-            return (List<Models.Area>)res;
+            try
+            {
+                string sqlQuery = "SELECT id, name from mst_area";
+                var res = await _connection.QueryAsync<Models.Area>(sqlQuery);
+                return (List<Models.Area>)res;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public async Task<Models.Area> GetById(string id)
         {
-            string sqlQuery = "SELECT id, name from mst_area where id = @id";
-            var res = await _connection.QuerySingleOrDefaultAsync<Models.Area>(sqlQuery, new { id = id });
-            return (Models.Area)res;
+            try
+            {
+                string sqlQuery = "SELECT id, name from mst_area where id = @id";
+                var res = await _connection.QuerySingleOrDefaultAsync<Models.Area>(sqlQuery, new { id = id });
+                return (Models.Area)res;
+
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

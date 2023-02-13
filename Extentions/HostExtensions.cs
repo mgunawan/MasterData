@@ -152,6 +152,16 @@ namespace MasterData.Extensions
                     SeedDataMedia(connection);
                 }
 
+                if (!TableExist(command, "mst_background"))
+                {
+                    command.CommandText = @"CREATE TABLE mst_background (id varchar(5) NOT NULL PRIMARY KEY,
+                                                            name varchar(50),
+                                                            is_active bit NOT NULL DEFAULT 1,
+                                                            index_cmb int NOT NULL DEFAULT 1)";
+                    command.ExecuteNonQuery();
+                    SeedDataworkBackground(connection);
+                }
+
                 if (!TableExist(command, "db_migration"))
                 {
                     command.CommandText = @"CREATE TABLE db_migration (Id SERIAL PRIMARY KEY, 
@@ -168,6 +178,7 @@ namespace MasterData.Extensions
             if (alterTable)
             {
                 //CURRENT V 1
+
 
                 //if (!TableExist(command, "mst_media"))
                 //{
@@ -190,6 +201,11 @@ namespace MasterData.Extensions
                 command.CommandText = $"INSERT into db_migration (version, execute_at) values ('{curVersion}','{DateTime.Now.ToString("yyyyMMdd HHmmss")}');";
                 command.ExecuteNonQuery();
             }
+        }
+
+        private static void SeedDataworkBackground(MySqlConnection connection)
+        {
+            throw new NotImplementedException();
         }
 
         private static void SeedDataMedia(MySqlConnection conn)

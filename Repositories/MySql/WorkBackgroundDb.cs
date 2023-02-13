@@ -1,29 +1,30 @@
 ﻿using Dapper;
+using Grpc.Core;
 using MySql.Data.MySqlClient;
-using System.Xml.Linq;
+using Workbackground.Protos;
 
 namespace MasterData.Repositories.MySql
 {
-    public class MediaDb
+    public class WorkBackgroundDb
     {
         private readonly IConfiguration _configuration;
         private readonly MySqlConnection _connection;
 
-        public MediaDb(IConfiguration configuration)
+        public WorkBackgroundDb(IConfiguration configuration)
         {
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _connection = new MySqlConnection(_configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
         }
 
-        public async Task<bool> Create(Models.Media o)
-        {
+        public async Task<bool> SaveorUpdate(Models.WorkBackground o)
+        { 
             var dt = DateTime.UtcNow;
-            string findQuery = "SELECT name from mst_media where id = @id";
-            var oData = await _connection.QuerySingleOrDefaultAsync<Models.Media>(findQuery, new { id = o.Id });
+            string findQuery = "SELECT name from mst_background where id = @id";
+            var oData = await _connection.QuerySingleOrDefaultAsync<Models.WorkBackground>(findQuery, new { id = o.Id });
 
-            string sqlQuery = @"INSERT into mst_media (id, name, description, is_active, index_cmb) VALUES 
+            string sqlQuery = @"INSERT into mst_background (id, name, is_active, index_cmb) VALUES 
                                 (@id, @name, @description, @is_active, @index_cmb)";
-            string updateQuery = @"UPDATE mst_media set name = @name, description = @description, is_active = @is_active, 
+            string updateQuery = @"UPDATE mst_background set name = @name, is_active = @is_active, 
                                 index_cmb = @index_cmb where id = @id";
             int res = 0;
             if (oData == null)
@@ -32,7 +33,6 @@ namespace MasterData.Repositories.MySql
                 {
                     id = o.Id,
                     name = o.Name,
-                    description = o.Description,
                     is_active = true,
                     index_cmb = o.IndexCmb,
                 });
@@ -43,7 +43,6 @@ namespace MasterData.Repositories.MySql
                 {
                     id = o.Id,
                     name = o.Name,
-                    description = o.Description,
                     is_active = true,
                     index_cmb = o.IndexCmb,
                 });
@@ -52,13 +51,14 @@ namespace MasterData.Repositories.MySql
             return res > 0;
         }
 
-        public async Task<Models.Media> GetById(string id)
+        public async Task<Models.WorkBackground> GetById(string id)
         {
             try
             {
-                string sqlQuery = "SELECT id, name, description, is_active, index_cmb from mst_media where id = @idm and is_active = 1";
-                var oData = await _connection.QuerySingleOrDefaultAsync<Models.Media>(sqlQuery, new { idm = id });
-                return oData;
+                string sqlQuery = "SELECT id, name from mst_background where id = @id and is_active = 1";
+                var res = await _connection.QuerySingleOrDefaultAsync<Models.WorkBackground>(sqlQuery, new { id = id });
+                return (Models.WorkBackground)res;
+
             }
             catch
             {
@@ -66,13 +66,13 @@ namespace MasterData.Repositories.MySql
             }
         }
 
-        public async Task<List<Models.Media>> GetAll()
+        public async Task<List<Models.WorkBackground>> GetAll()
         {
             try
             {
-                string sqlQuery = "SELECT id, name, description, is_active, index_cmb from mst_media where is_active = 1 order by index_cmb asc";
-                var oData = await _connection.QueryAsync<Models.Media>(sqlQuery);
-                return (List<Models.Media>)oData;
+                string sqlQuery = "SELECT id, name, is_active, index_cmb from mst_background where is_active = 1 order by index_cmb asc";
+                var oData = await _connection.QueryAsync<Models.WorkBackground>(sqlQuery);
+                return (List<Models.WorkBackground>)oData;
             }
             catch
             {
@@ -80,4 +80,5 @@ namespace MasterData.Repositories.MySql
             }
         }
     }
+
 }

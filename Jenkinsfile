@@ -9,7 +9,7 @@ pipeline {
     agent {
         node {
             label 'slave-00'
-            customWorkspace "workspace/${env.BRANCH_NAME}/src/git.bluebird.id/bb-core/masterdata"
+            customWorkspace "workspace/${env.BRANCH_NAME}/src/git.bluebird.id/bb-one/masterdata"
         }
     }
     environment {
@@ -60,7 +60,7 @@ pipeline {
                         sh 'chmod +x ./build.sh'
                         sh './build.sh $ALPHA'
                         sh 'chmod +x ./deploy.sh'
-                        sh './deploy.sh $ALPHA $NAMESPACE bb-core'
+                        sh './deploy.sh $ALPHA $NAMESPACE bb-one'
                         sh 'rm kubeconfig.conf service-account.json'
                         }
                     }
@@ -85,7 +85,7 @@ pipeline {
                             sh 'chmod +x build.sh'
                             sh './build.sh $VERSION'
                             sh 'chmod +x deploy.sh'
-                            sh './deploy.sh $VERSION $NAMESPACE bb-core'
+                            sh './deploy.sh $VERSION $NAMESPACE bb-one'
                             sh 'rm kubeconfig.conf service-account.json'
                         }
                     }

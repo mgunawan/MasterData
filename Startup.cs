@@ -15,6 +15,8 @@ using System.Net;
 using MasterData.Company.Protos;
 using Elastic.Apm.NetCoreAll;
 using MasterData.Region.Protos;
+using MasterData.Media.Protos;
+using MasterData.Workbackground.Protos;
 
 namespace MasterData
 {
@@ -98,14 +100,24 @@ namespace MasterData
             //IOC
             services.AddScoped<PoolDb>();
             services.AddScoped<PoolCache>();
+
             services.AddScoped<AreaDb>();
             services.AddScoped<AreaCache>();
+
             services.AddScoped<CompanyDb>();
             services.AddScoped<CompanyCache>();
+
             services.AddScoped<ServiceTypeDb>();
             services.AddScoped<ServiceTypeCache>();
+
             services.AddScoped<RegionDb>();
             services.AddScoped<RegionCache>();
+
+            services.AddScoped<MediaCache>();
+            services.AddScoped<MediaDb>();
+
+            services.AddScoped<WorkBackgroundCache>();
+            services.AddScoped<WorkBackgroundDb>();
 
             //services.AddScoped<CompanyClient>();
 
@@ -114,11 +126,15 @@ namespace MasterData
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
             services.AddScoped<IRegionRepository, RegionRepository>();
+            services.AddScoped<IMediaRepository, MediaRepository>();
+            services.AddScoped<IWorkBackgroundRepository, WorkBackgroundRepository>();
 
             services.AddScoped<PoolGrpcService.PoolGrpcServiceBase, PoolService>();
             services.AddScoped<AreaGrpcService.AreaGrpcServiceBase, AreaService>();
             services.AddScoped<CompanyGrpcService.CompanyGrpcServiceBase, CompanyService>();
             services.AddScoped<RegionGrpcService.RegionGrpcServiceBase, RegionService>();
+            //services.AddScoped<MediaGrpcService.MediaGrpcServiceBase, MediaService>();
+            //services.AddScoped<WorkBackgroundGrpcService.WorkBackgroundGrpcServiceBase, WorkBackgroundService>();
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -159,6 +175,8 @@ namespace MasterData
                 endpoints.MapGrpcService<VehicleTypeService>();
                 endpoints.MapGrpcService<RegionService>();
                 endpoints.MapGrpcService<CommonService>();
+                endpoints.MapGrpcService<MediaService>();
+                endpoints.MapGrpcService<WorkBackgroundService>();
 
                 endpoints.MapGrpcReflectionService(); //  Focus!!!
                 endpoints.MapGet("/", async context =>

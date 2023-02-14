@@ -141,6 +141,27 @@ namespace MasterData.Extensions
                     command.ExecuteNonQuery();
                 }
 
+                if (!TableExist(command, "mst_media"))
+                {
+                    command.CommandText = @"CREATE TABLE mst_media (id varchar(5) NOT NULL PRIMARY KEY,
+                                                            name varchar(30),
+                                                            description varchar(255),
+                                                            is_active bit NOT NULL DEFAULT 1,
+                                                            index_cmb int NOT NULL DEFAULT 1)";
+                    command.ExecuteNonQuery();
+                    SeedDataMedia(connection);
+                }
+
+                if (!TableExist(command, "mst_background"))
+                {
+                    command.CommandText = @"CREATE TABLE mst_background (id varchar(5) NOT NULL PRIMARY KEY,
+                                                            name varchar(50),
+                                                            is_active bit NOT NULL DEFAULT 1,
+                                                            index_cmb int NOT NULL DEFAULT 1)";
+                    command.ExecuteNonQuery();
+                    SeedDataworkBackground(connection);
+                }
+
                 if (!TableExist(command, "db_migration"))
                 {
                     command.CommandText = @"CREATE TABLE db_migration (Id SERIAL PRIMARY KEY, 
@@ -156,15 +177,18 @@ namespace MasterData.Extensions
 
             if (alterTable)
             {
-                //if (!TableExist(command, "mst_company_service"))
+                //CURRENT V 1
+
+
+                //if (!TableExist(command, "mst_media"))
                 //{
-                //    command.CommandText = @"CREATE TABLE mst_company_service (
-                //                                pool_id varchar(255) NOT NULL,                                                
-                //                                company_id varchar(255) NOT NULL,
-                //                                PRIMARY KEY (pool_id, company_id),
-                //                                isinduk bit NOT NULL DEFAULT 0,
-                //                                isactive bit NOT NULL DEFAULT 1)";
+                //    command.CommandText = @"CREATE TABLE mst_media (id varchar(5) NOT NULL PRIMARY KEY,
+                //                                            name varchar(30),
+                //                                            description varchar(255),
+                //                                            is_active bit NOT NULL DEFAULT 1,
+                //                                            index_cmb int NOT NULL DEFAULT 1)";
                 //    command.ExecuteNonQuery();
+                //    SeedDataMedia(connection);
                 //}
 
                 //string upgradeTable = $@"ALTER TABLE mst_pool_company " +
@@ -176,6 +200,22 @@ namespace MasterData.Extensions
                 //update migration
                 command.CommandText = $"INSERT into db_migration (version, execute_at) values ('{curVersion}','{DateTime.Now.ToString("yyyyMMdd HHmmss")}');";
                 command.ExecuteNonQuery();
+            }
+        }
+
+        private static void SeedDataworkBackground(MySqlConnection connection)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void SeedDataMedia(MySqlConnection conn)
+        {
+            string fileName = @".\Extentions\init_data_media.sql";
+            string data = System.IO.File.ReadAllText(fileName);
+            using (MySqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = data;
+                cmd.ExecuteNonQuery();
             }
         }
 

@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+option csharp_namespace = "MasterData.Media.Protos";
+
+import "google/api/annotations.proto";
+
+message MediaModel{
+	string id = 1;
+	string name = 2;
+	string description = 3;
+	bool is_active = 4;
+	int32 index = 5;
+}
+
+message ReqMediaId{
+	string id = 1;
+}
+
+message ResMedia{
+	MediaModel media=1;
+}
+
+message ResMediaAll{
+	repeated MediaModel list_media = 1;
+}
+
+message MediaEmpty{
+	string message = 1;
+}
+
+service MediaGrpcService{
+	rpc SaveOrUpdate(MediaModel) returns (MediaEmpty){
+		option (google.api.http) = {
+		  post: "/v1/media",
+		  body: "*"
+		};
+	}
+
+	rpc Delete(MediaModel) returns (MediaEmpty){
+		option (google.api.http) = {
+		  delete: "/v1/media",
+		};
+	}
+
+	rpc GetById(ReqMediaId) returns (ResMedia){
+		option (google.api.http) = {
+			get: "/v1/media/{id}"
+		};
+	}
+
+	rpc GetAll(MediaEmpty) returns (ResMediaAll){
+		option (google.api.http) = {
+			get: "/v1/media"
+		};
+	}
+}

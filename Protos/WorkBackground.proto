@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+option csharp_namespace = "MasterData.Workbackground.Protos";
+import "google/api/annotations.proto";
+
+message WorkBackgroundModel{
+	string id = 1;
+	string name = 2;
+	bool is_active = 3;
+	int32 index_cmb = 4;
+}
+
+message reqBackgroundId {
+	string id = 1;
+}
+
+message resBackgroundAll{
+	repeated WorkBackgroundModel list_background = 1;
+}
+
+message BackgroundEmpty{
+	string message = 1;
+}
+
+service WorkBackgroundGrpcService{
+	rpc SaveOrUpdate(WorkBackgroundModel) returns (BackgroundEmpty){
+		option (google.api.http) = {
+		  post: "/v1/background",
+		  body: "*"
+		};
+	}
+
+	rpc GetById(reqBackgroundId) returns (WorkBackgroundModel){
+		option (google.api.http) = {
+			get: "/v1/background/{id}"
+		};
+	}
+
+	rpc GetAll(BackgroundEmpty) returns (resBackgroundAll){
+		option (google.api.http) = {
+			get: "/v1/background"
+		};
+	}
+}

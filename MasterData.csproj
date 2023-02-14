@@ -17,9 +17,11 @@
 		<None Remove="Protos\Area.proto" />
 		<None Remove="Protos\Common2ArrayList.proto" />
 		<None Remove="Protos\Company.proto" />
+		<None Remove="Protos\Media.proto" />
 		<None Remove="Protos\Pool.proto" />
 		<None Remove="Protos\ServiceType.proto" />
 		<None Remove="Protos\Region.proto" />
+		<None Remove="Protos\WorkBackground.proto" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -64,12 +66,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Protobuf Include="Protos\Common2ArrayList.proto" GrpcServices="Both" />
-		<Protobuf Include="Protos\Company.proto" GrpcServices="Both" />
-		<Protobuf Include="Protos\Pool.proto" GrpcServices="Both" />
-		<Protobuf Include="Protos\Area.proto" GrpcServices="Both" />
-		<Protobuf Include="Protos\ServiceType.proto" GrpcServices="Both" />
-		<Protobuf Include="Protos\Region.proto" GrpcServices="Both" />
+	  <Protobuf Include="Protos\Area.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\Common2ArrayList.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\Company.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\Media.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\Pool.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\Region.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\ServiceType.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\WorkBackground.proto" GrpcServices="Server" />
 	</ItemGroup>
 
 </Project>

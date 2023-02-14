@@ -46,10 +46,16 @@ service CompanyGrpcService{
 		};
 	}
 
-	rpc GetAll(reqGetAll) returns (resCompanyAll){
+	rpc GetByCriteria(reqGetAll) returns (resCompanyAll){
 		option(google.api.http) = {
-			post : "/v1/company",
-			body : "*"
+			get : "/v1/company/{search}/{page}/{row_page}/{is_descending}"
 		};
 	}
+
+	rpc GetAll(reqGetAll) returns (resCompanyAll){
+		option(google.api.http) = {
+			get : "/v1/company/{page}/{row_page}/{is_descending}"
+		};
+	}
+
 }
